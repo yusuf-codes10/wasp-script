@@ -1,0 +1,11 @@
+{
+  "name": "@waspscript/api",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.13.8"
+  }
+}
