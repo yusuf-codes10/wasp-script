@@ -1,3 +1,14 @@
+CREATE TYPE "difficulty" AS ENUM ('easy', 'medium', 'hard', 'legendary');
+CREATE TYPE "category" AS ENUM (
+	'arrays',
+	'strings',
+	'functions',
+	'closures',
+	'async',
+	'dom',
+	'objects',
+	'misc'
+);
 CREATE TABLE "challenges" (
 	"id" bigint PRIMARY KEY NOT NULL,
 	"title" text NOT NULL,
