@@ -35,3 +35,9 @@ export const challenges = pgTable('challenges', {
     startCode: text('startCode').notNull(),
     createdAt: timestamp('createdAt').defaultNow()
 });
+
+export const userProgress = pgTable('userProgress', {
+    userId: bigint('userId', {mode: "number"}).notNull().references(() => users.id),
+    challengeId: bigint('challengeId', { mode: "number"}).notNull().references(() => challenges.id),
+    completedAt: timestamp('completedAt').defaultNow()
+});
