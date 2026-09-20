@@ -11,7 +11,6 @@
     "zod": "3.25.1"
   },
   "peerDependencies": {
-    "drizzle-orm": "^0.45.0",
-    "zod": "3.24.0"
+    "drizzle-orm": "^0.45.0"
   }
 }
