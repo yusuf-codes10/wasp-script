@@ -14,6 +14,8 @@ const data = [
 const seed =  async () => {
     console.log('🌱 Seeding challenges...');
 
-    await db.insert(challenges).values(data)
+    await db.insert(challenges).values(data).onConflictDoNothing();
 
+    console.log(`✅ Seeded ${data.length} challenges`)
+    process.exit(0);
 }
