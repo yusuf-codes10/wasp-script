@@ -32,4 +32,6 @@ export const challenges = pgTable('challenges', {
     description: text('description').notNull(),
     difficulty: difficultyEnum('difficulty').notNull(),
     category: categoryEnum('category').notNull(),
+    startCode: text('startCode').notNull(),
+    createdAt: timestamp('createdAt').defaultNow()
 });
