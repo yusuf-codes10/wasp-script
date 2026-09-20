@@ -1,4 +1,4 @@
-import { selectChallengeSchema } from '../validation/challenge';
-import { z } from 'zod';
+import { challenges } from '../../../db//src/index';
 
-export type Challenge = z.infer<typeof selectChallengeSchema>;
+export type Challenge = typeof challenges.$inferSelect;
+export type NewChallenge = typeof challenges.$inferInsert;

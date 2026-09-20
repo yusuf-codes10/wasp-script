@@ -1,7 +1,8 @@
 import { db } from "@db/index";
 import { challenges } from "@db/index";
+import type { NewChallenge } from '@shared/types/challenge';
 
-const data = [
+const data: NewChallenge[] = [
   // ───────────── LEVEL 1 — Warm Up ─────────────
   {
     title: "Reverse a String",
