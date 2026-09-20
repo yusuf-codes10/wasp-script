@@ -7,15 +7,20 @@ const data = [
     description: "Write a function that reverses a string.",
     category: "strings" as const,
     difficulty: "easy" as const,
-    starterCode: `function reverseString(str) {\n  // your code here\n}`,
+    startCode: `function reverseString(str) {\n  // your code here\n}`,
   },
 ];
 
-const seed =  async () => {
-    console.log('🌱 Seeding challenges...');
+const seed = async () => {
+  console.log("🌱 Seeding challenges...");
 
-    await db.insert(challenges).values(data).onConflictDoNothing();
+  await db.insert(challenges).values(data).onConflictDoNothing();
 
-    console.log(`✅ Seeded ${data.length} challenges`)
-    process.exit(0);
-}
+  console.log(`✅ Seeded ${data.length} challenges`);
+  process.exit(0);
+};
+
+seed().catch((err) => {
+  console.error("❌ Seed failed:", err);
+  process.exit(1);
+});

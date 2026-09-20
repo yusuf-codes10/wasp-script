@@ -10,7 +10,8 @@
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "push": "drizzle-kit push",
-    "studio": "drizzle-kit studio"
+    "studio": "drizzle-kit studio",
+    "seed": "bun run src/seed.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
