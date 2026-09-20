@@ -10,3 +10,10 @@ const data = [
     starterCode: `function reverseString(str) {\n  // your code here\n}`,
   },
 ];
+
+const seed =  async () => {
+    console.log('🌱 Seeding challenges...');
+
+    await db.insert(challenges).values(data)
+
+}
