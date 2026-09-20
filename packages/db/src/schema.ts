@@ -9,6 +9,13 @@ const categoryEnum = pgEnum('category', [
     'dom',
     'objects',
     'misc' // gotta check out later
+]);
+
+const difficultyEnum = pgEnum('difficulty', [
+    'easy',
+    'medium',
+    'hard',
+    'legendary'
 ])
 
 export const users = pgTable("users", {
@@ -23,6 +30,6 @@ export const challenges = pgTable('challenges', {
     id: bigint('id', { mode: "number"}).primaryKey(),
     title: text('title').unique().notNull(),
     description: text('description').notNull(),
-    difficulty: text('difficulty').notNull(),
+    difficulty: difficultyEnum('difficulty').notNull(),
     category: categoryEnum('category').notNull(),
 });
