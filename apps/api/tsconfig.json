@@ -1,10 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "include": ["src/**/*"],
-  // adding paths for absolute paths!
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@shared/*": ["../../packages/shared/src/*"],
+      "@db/*": ["../../packages/db/src/*"]
     }
   }
 }

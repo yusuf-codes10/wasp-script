@@ -1,14 +1,19 @@
 import { Hono } from "hono";
+import type { NewUser } from "@shared/types/user";
 
 const app = new Hono();
 
+const user: NewUser = {
+  username: "claire",
+  email: "claire@gmail.com",
+};
 
-app.get('/', (c) => {
-    return c.json({msg: 'Hey man'});
-})
+app.get("/", (c) => {
+  return c.json({ msg: "Hey man", user });
+});
 
-app.get('/admin', (c) => {
-    return c.json({msg: 'Hello Admin!'});
-})
+app.get("/admin", (c) => {
+  return c.json({ msg: "Hello Admin!" });
+});
 
 export default app;
