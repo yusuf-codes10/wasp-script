@@ -6,6 +6,7 @@ import {
   fullUserSchema,
 } from "@shared/validation/sekishoUser";
 import { zValidator } from "@hono/zod-validator";
+import { db, users } from '@db/index';
 
 const factory = createFactory<{}>();
 
@@ -42,7 +43,8 @@ export const register = factory.createHandlers(
       // ! type assertion: "As" is idiomatic here since the external data is unkwon
       const { safeUser, token } = data as {safeUser: unknown, token: string};
       if (!safeUser || !token) {
-
+        // must type the user
+        await db.insert(users).values(safeUser)
       }
 
       return c.json({ msg: "user registered", data });
