@@ -12,15 +12,37 @@ const factory = createFactory<{}>();
 export const register = factory.createHandlers(
   zValidator("json", registerSchema),
   async (c) => {
-    const body = c.req.valid('json');
+    const body = c.req.valid("json");
     // a post request to Sekisho
-    // try {
-    //   await fetch("https://sekisho.onrender.com/auth/register", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-    // } catch (error) {}
-    return c.json({ msg: "user registered", body });
+    try {
+      const response = await fetch(
+        "https://sekisho.onrender.com/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        },
+      );
+
+      const data = await response.json();
+
+      console.group("📡 Sekisho /auth/register");
+      console.log("Status    :", response.status, response.statusText);
+      console.log("Ok        :", response.ok);
+      console.log("Body      :", data);
+      console.groupEnd();
+
+      if (!response.ok) {
+        return c.json({ msg: "Registration failed", error: data }, 400);
+      }
+      return c.json({ msg: "user registered", data });
+    } catch (error) {
+      console.group("💥 Sekisho /auth/register - FAILED");
+      console.error("Error     :", error);
+      console.groupEnd();
+
+      return c.json({ msg: "Internal error" }, 500);
+    }
   },
 );
 
