@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import type { NewUser } from "@shared/types/user";
 
 import logger from '@/middlewares/logger';
+import catchAll from "./middlewares/catchAll";
 
 const app = new Hono();
 
@@ -11,6 +12,7 @@ const user: NewUser = {
 };
 
 app.use(logger);
+app.use(catchAll);
 
 app.get("/", (c) => {
   return c.json({ msg: "Hey man", user });
