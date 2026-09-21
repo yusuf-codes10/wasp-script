@@ -39,6 +39,7 @@ export const register = factory.createHandlers(
       }
 
       // storing data in db & signin the token
+      // ! type assertion: "As" is idiomatic here since the external data is unkwon
       const { safeUser, token } = data as {safeUser: unknown, token: string};
       if (!safeUser || !token) {
 
