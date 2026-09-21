@@ -1,13 +1,15 @@
 import { createFactory } from "hono/factory";
 import type { registerType } from "@shared/types/sekishoUser";
-import type { User } from '@shared/types/user';
+import type { User } from "@shared/types/user";
 import {
   registerSchema,
   loginSchema,
   fullUserSchema,
 } from "@shared/validation/sekishoUser";
 import { zValidator } from "@hono/zod-validator";
-import { db, users } from '@db/index';
+import { db, users } from "@db/index";
+import { eq, or } from "drizzle-orm";
+import { HTTPException } from "hono/http-exception";
 
 const factory = createFactory<{}>();
 
@@ -42,10 +44,25 @@ export const register = factory.createHandlers(
 
       // storing data in db & signin the token
       // ! type assertion: "As" is idiomatic here since the external data is unkwon
-      const { safeUser, token } = data as {safeUser: User, token: string};
+      const { safeUser, token } = data as { safeUser: User; token: string };
       if (!safeUser || !token) {
+        // check if user already exist
+        const [duplicateUser] = await db
+          .select()
+          .from(users)
+          .where(
+            or(
+              eq(users.username, safeUser.username),
+
+              eq(users.email, safeUser.email),
+            ),
+          );
+
+          if (duplicateUser) {
+            throw new HTTPException(400, {message: "username or email already exists"});
+          }
         // must type the user
-        await db.insert(users).values(safeUser)
+        await db.insert(users).values(safeUser).returning();
       }
 
       return c.json({ msg: "user registered", data });
