@@ -4,6 +4,9 @@ const factory = createFactory<{}>();
 
 export const register = factory.createHandlers(
     (c) => {
+
+        // a post request to Sekisho
+        
         return c.json({msg: 'user registered'});
     }
 );
