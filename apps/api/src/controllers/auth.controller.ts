@@ -26,6 +26,8 @@ export const register = factory.createHandlers(
 
       const data = await response.json();
 
+      console.log(body);
+
       console.group("📡 Sekisho /auth/register");
       console.log("Status    :", response.status, response.statusText);
       console.log("Ok        :", response.ok);

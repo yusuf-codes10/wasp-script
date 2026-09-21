@@ -15,7 +15,7 @@ export const loginSchema = z.object({
 });
 
 // what our API grabs and need from the user, the password geenrated by Sekisho
-export const registerSchema = z.object({
+export const registerSchema = loginSchema.extend({
   email: z.string().email("Invalid email adress!").trim().toLowerCase(),
   fullName: z
     .string()
@@ -23,6 +23,7 @@ export const registerSchema = z.object({
     .max(20, "Full name cannot exceed 20 characters!")
     .trim()
     .nullish(), // both null or undefined
+  
 });
 
 // db level
