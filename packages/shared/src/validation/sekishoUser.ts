@@ -14,6 +14,7 @@ export const loginSchema = z.object({
     .regex(/[0-9]/, "Password must contain at least one number"),
 });
 
+// what our API grabs and need from the user, the password geenrated by Sekisho
 export const registerSchema = z.object({
   email: z.string().email("Invalid email adress!").trim().toLowerCase(),
   fullName: z
@@ -24,6 +25,7 @@ export const registerSchema = z.object({
     .nullish(), // both null or undefined
 });
 
+// db level
 export const fullUserSchema = registerSchema.extend({
   id: z.number(),
   createdAt: z.date(),
