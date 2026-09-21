@@ -1,5 +1,6 @@
 import { createFactory } from "hono/factory";
 import type { registerType } from "@shared/types/sekishoUser";
+import type { User } from '@shared/types/user';
 import {
   registerSchema,
   loginSchema,
@@ -41,7 +42,7 @@ export const register = factory.createHandlers(
 
       // storing data in db & signin the token
       // ! type assertion: "As" is idiomatic here since the external data is unkwon
-      const { safeUser, token } = data as {safeUser: unknown, token: string};
+      const { safeUser, token } = data as {safeUser: User, token: string};
       if (!safeUser || !token) {
         // must type the user
         await db.insert(users).values(safeUser)
