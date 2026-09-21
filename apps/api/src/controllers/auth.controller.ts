@@ -62,7 +62,15 @@ export const register = factory.createHandlers(
             throw new HTTPException(400, {message: "username or email already exists"});
           }
         // must type the user
-        await db.insert(users).values(safeUser).returning();
+        // await db.insert(users).values(safeUser).returning();
+        await db.insert(users).values({
+          id: safeUser.id,
+          username: safeUser.username,
+          email: safeUser.email,
+          fullName: safeUser.fullName,
+          createdAt: safeUser.createdAt
+        }).returning();
+
       }
 
       return c.json({ msg: "user registered", data });
