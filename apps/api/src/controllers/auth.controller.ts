@@ -63,7 +63,7 @@ export const register = factory.createHandlers(
           }
         // must type the user
         // await db.insert(users).values(safeUser).returning();
-        await db.insert(users).values({
+        const [createdUser] = await db.insert(users).values({
           id: safeUser.id,
           username: safeUser.username,
           email: safeUser.email,
@@ -71,9 +71,11 @@ export const register = factory.createHandlers(
           createdAt: safeUser.createdAt
         }).returning();
 
+        return c.json({ msg: "user registered", createdUser });
       }
 
-      return c.json({ msg: "user registered", data });
+      // TODO: next sign the token here, with auth middleware
+
     } catch (error) {
       console.group("💥 Sekisho /auth/register - FAILED");
       console.error("Error     :", error);
