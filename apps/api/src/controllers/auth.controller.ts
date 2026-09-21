@@ -37,6 +37,13 @@ export const register = factory.createHandlers(
       if (!response.ok) {
         return c.json({ msg: "Registration failed", error: data }, 400);
       }
+
+      // storing data in db & signin the token
+      const { safeUser, token } = data as {safeUser: unknown, token: string};
+      if (!safeUser || !token) {
+
+      }
+
       return c.json({ msg: "user registered", data });
     } catch (error) {
       console.group("💥 Sekisho /auth/register - FAILED");
