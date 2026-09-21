@@ -12,14 +12,15 @@ const factory = createFactory<{}>();
 export const register = factory.createHandlers(
   zValidator("json", registerSchema),
   async (c) => {
+    const body = c.req.valid('json');
     // a post request to Sekisho
-    try {
-      await fetch("https://sekisho.onrender.com/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-    } catch (error) {}
-    return c.json({ msg: "user registered" });
+    // try {
+    //   await fetch("https://sekisho.onrender.com/auth/register", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //   });
+    // } catch (error) {}
+    return c.json({ msg: "user registered", body });
   },
 );
 
