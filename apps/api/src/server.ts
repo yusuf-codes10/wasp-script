@@ -14,16 +14,12 @@ const user: NewUser = {
 };
 
 app.use(logger);
-app.use(catchAll);
 
 app.route('/', authRouter);
-
-app.get("/", (c) => {
-  return c.json({ msg: "Hey man", user });
-});
 
 app.get("/admin", (c) => {
   return c.json({ msg: "Hello Admin!" });
 });
+app.use(catchAll);
 
 export default app;
