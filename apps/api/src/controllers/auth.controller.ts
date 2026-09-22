@@ -96,6 +96,17 @@ export const register = factory.createHandlers(
   },
 );
 
-export const login = factory.createHandlers((c) => {
-  return c.json({ msg: "user logged in!" });
+export const login = factory.createHandlers( zValidator('json', loginSchema), async (c) => {
+
+const toLogUser = c.req.valid('json');
+  try {
+    // check if user exists
+      const [foundUser] = await db.select().from(users).where(eq(users.username, toLogUser.username));
+
+      if (!foundUser) throw new HTTPException(404, {message: "User does not exist! Sign Up first"});
+
+    return c.json({ msg: "user logged in!" });
+  } catch (error) {
+    
+  }
 });
