@@ -72,15 +72,18 @@ export const register = factory.createHandlers(
           createdAt: safeUser.createdAt
         }).returning();
 
+        if (createdUser) 
+        
+
+        // TODO: next sign the token here, with auth middleware
+        await issueSession(c, {
+          id: createdUser.id,
+          username: createdUser.username,
+          email: createdUser.email
+        })
         return c.json({ msg: "user registered", createdUser });
       }
 
-      // TODO: next sign the token here, with auth middleware
-      await issueSession(c, {
-        id: createdUser.id,
-        username: createdUser.username,
-        email: createdUser.email
-      })
 
     } catch (error) {
       console.group("💥 Sekisho /auth/register - FAILED");
