@@ -166,3 +166,13 @@ export const logout = factory.createHandlers((c: Context) => {
   destroyToken(c);
   return c.json({ msg: "logged out succesfuly!" });
 })
+
+export const verifyUser = factory.createHandlers(async (c: Context) => {
+  const payload = await c.get('jwtPayload') as User;
+
+  const [user] = await db.select()
+  .from(users)
+  .where(eq(users.id, payload.id));
+
+  return c.json({user})
+});
