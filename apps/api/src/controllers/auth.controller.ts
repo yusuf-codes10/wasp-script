@@ -59,33 +59,36 @@ export const register = factory.createHandlers(
             ),
           );
 
-          if (duplicateUser) {
-            throw new HTTPException(400, {message: "username or email already exists"});
-          }
+        if (duplicateUser) {
+          throw new HTTPException(400, {
+            message: "username or email already exists",
+          });
+        }
         // must type the user
         // await db.insert(users).values(safeUser).returning();
-        const [createdUser] = await db.insert(users).values({
-          id: safeUser.id,
-          username: safeUser.username,
-          email: safeUser.email,
-          fullName: safeUser.fullName,
-          createdAt: safeUser.createdAt
-        }).returning();
+        const [createdUser] = await db
+          .insert(users)
+          .values({
+            id: safeUser.id,
+            username: safeUser.username,
+            email: safeUser.email,
+            fullName: safeUser.fullName,
+            createdAt: safeUser.createdAt,
+          })
+          .returning();
 
         if (!createdUser) {
-          throw new HTTPException(500, {message: 'Could not create user!'});
+          throw new HTTPException(500, { message: "Could not create user!" });
         }
 
         // TODO: next sign the token here, with auth middleware
         await issueSession(c, {
           id: createdUser.id,
           username: createdUser.username,
-          email: createdUser.email
-        })
+          email: createdUser.email,
+        });
         return c.json({ msg: "user registered", createdUser });
       }
-
-
     } catch (error) {
       console.group("💥 Sekisho /auth/register - FAILED");
       console.error("Error     :", error);
@@ -96,17 +99,51 @@ export const register = factory.createHandlers(
   },
 );
 
-export const login = factory.createHandlers( zValidator('json', loginSchema), async (c) => {
+export const login = factory.createHandlers(
+  zValidator("json", loginSchema),
+  async (c) => {
+    const toLogUser = c.req.valid("json");
+    try {
+      // 1- sekisho login first
+      const response = await fetch("https://sekisho.onrender.com/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(toLogUser),
+      });
 
-const toLogUser = c.req.valid('json');
-  try {
-    // check if user exists
-      const [foundUser] = await db.select().from(users).where(eq(users.username, toLogUser.username));
+      const data = await response.json();
 
-      if (!foundUser) throw new HTTPException(404, {message: "User does not exist! Sign Up first"});
+      console.group("📡 Sekisho /auth/login");
+      console.log("Status    :", response.status, response.statusText);
+      console.log("Ok        :", response.ok);
+      console.log("Body      :", data);
+      console.groupEnd();
 
-    return c.json({ msg: "user logged in!" });
-  } catch (error) {
-    
-  }
-});
+      if (!response.ok) {
+        // throw or return something
+        return c.json({ msg: "Login failed", error: data }, 400);
+      }
+
+      console.log(data);
+
+      // check if user exists
+      const [foundUser] = await db
+        .select()
+        .from(users)
+        .where(eq(users.username, toLogUser.username));
+
+      if (!foundUser)
+        throw new HTTPException(404, {
+          message: "User does not exist! Sign Up first",
+        });
+
+      return c.json({ msg: "user logged in!" });
+    } catch (error) {
+      console.group("💥 Sekisho /auth/login - FAILED");
+      console.error("Error     :", error);
+      console.groupEnd();
+
+      return c.json({ msg: "Internal error" }, 500);
+    }
+  },
+);
