@@ -64,9 +64,12 @@ export const register = factory.createHandlers(
         );
 
       if (duplicateUser) {
-        throw new HTTPException(400, {
-          message: "username or email already exists",
+        await issueSession(c, {
+          id: duplicateUser.id,
+          username: duplicateUser.username,
+          email: duplicateUser.email,
         });
+        return c.json({ msg: "user already registered, session issued" });
       }
       // must type the user
       // await db.insert(users).values(safeUser).returning();
@@ -77,20 +80,17 @@ export const register = factory.createHandlers(
           username: safeUser.username,
           email: safeUser.email,
           fullName: safeUser.fullName,
-          createdAt: safeUser.createdAt ? new Date(safeUser.createdAt) : new Date(),
+          createdAt: safeUser.createdAt
+            ? new Date(safeUser.createdAt)
+            : new Date(), // nullish fallback
         })
         .returning();
 
       if (!createdUser) {
         throw new HTTPException(500, { message: "Could not create user!" });
       }
-
       // TODO: next sign the token here, with auth middleware
-      await issueSession(c, {
-        id: createdUser.id,
-        username: createdUser.username,
-        email: createdUser.email,
-      });
+
       return c.json({ msg: "user registered", createdUser });
     } catch (error) {
       console.group("💥 Sekisho /auth/register - FAILED");
