@@ -1,6 +1,7 @@
 import { createFactory } from "hono/factory";
 import type { registerType } from "@shared/types/sekishoUser";
 import type { User } from "@shared/types/user";
+import type { Context } from 'hono';
 import {
   registerSchema,
   loginSchema,
@@ -11,6 +12,7 @@ import { db, users } from "@db/index";
 import { eq, or } from "drizzle-orm";
 import { HTTPException } from "hono/http-exception";
 import { issueSession } from "@/utils/issueSession";
+import { destroyToken } from "@/utils/destroyToken";
 
 const factory = createFactory<{}>();
 
@@ -159,3 +161,8 @@ export const login = factory.createHandlers(
     }
   },
 );
+
+export const logout = factory.createHandlers((c: Context) => {
+  destroyToken(c);
+  return c.json({ msg: "logged out succesfuly!" });
+})
