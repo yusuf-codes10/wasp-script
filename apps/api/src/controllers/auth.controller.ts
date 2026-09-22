@@ -47,48 +47,51 @@ export const register = factory.createHandlers(
       // ! type assertion: "As" is idiomatic here since the external data is unkwon
       const { safeUser, token } = data as { safeUser: User; token: string };
       if (!safeUser || !token) {
-        // check if user already exist
-        const [duplicateUser] = await db
-          .select()
-          .from(users)
-          .where(
-            or(
-              eq(users.username, safeUser.username),
-
-              eq(users.email, safeUser.email),
-            ),
-          );
-
-        if (duplicateUser) {
-          throw new HTTPException(400, {
-            message: "username or email already exists",
-          });
-        }
-        // must type the user
-        // await db.insert(users).values(safeUser).returning();
-        const [createdUser] = await db
-          .insert(users)
-          .values({
-            id: safeUser.id,
-            username: safeUser.username,
-            email: safeUser.email,
-            fullName: safeUser.fullName,
-            createdAt: safeUser.createdAt,
-          })
-          .returning();
-
-        if (!createdUser) {
-          throw new HTTPException(500, { message: "Could not create user!" });
-        }
-
-        // TODO: next sign the token here, with auth middleware
-        await issueSession(c, {
-          id: createdUser.id,
-          username: createdUser.username,
-          email: createdUser.email,
+        throw new HTTPException(500, {
+          message: "Invalid response from Sekisho",
         });
-        return c.json({ msg: "user registered", createdUser });
       }
+      // check if user already exist
+      const [duplicateUser] = await db
+        .select()
+        .from(users)
+        .where(
+          or(
+            eq(users.username, safeUser.username),
+
+            eq(users.email, safeUser.email),
+          ),
+        );
+
+      if (duplicateUser) {
+        throw new HTTPException(400, {
+          message: "username or email already exists",
+        });
+      }
+      // must type the user
+      // await db.insert(users).values(safeUser).returning();
+      const [createdUser] = await db
+        .insert(users)
+        .values({
+          id: safeUser.id,
+          username: safeUser.username,
+          email: safeUser.email,
+          fullName: safeUser.fullName,
+          createdAt: safeUser.createdAt,
+        })
+        .returning();
+
+      if (!createdUser) {
+        throw new HTTPException(500, { message: "Could not create user!" });
+      }
+
+      // TODO: next sign the token here, with auth middleware
+      await issueSession(c, {
+        id: createdUser.id,
+        username: createdUser.username,
+        email: createdUser.email,
+      });
+      return c.json({ msg: "user registered", createdUser });
     } catch (error) {
       console.group("💥 Sekisho /auth/register - FAILED");
       console.error("Error     :", error);
@@ -126,7 +129,7 @@ export const login = factory.createHandlers(
 
       console.log(data);
 
-      const { safeUser, token } = data as {safeUser: User, token: string};
+      const { safeUser, token } = data as { safeUser: User; token: string };
 
       // check if user exists
       const [foundUser] = await db
@@ -139,12 +142,12 @@ export const login = factory.createHandlers(
           message: "User does not exist! Sign Up first",
         });
 
-        // issue the session
-        await issueSession(c, {
-          id: foundUser.id,
-          username: foundUser.username,
-          email: foundUser.email
-        })
+      // issue the session
+      await issueSession(c, {
+        id: foundUser.id,
+        username: foundUser.username,
+        email: foundUser.email,
+      });
 
       return c.json({ msg: "user logged in!" });
     } catch (error) {
