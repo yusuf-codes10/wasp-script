@@ -72,8 +72,9 @@ export const register = factory.createHandlers(
           createdAt: safeUser.createdAt
         }).returning();
 
-        if (createdUser) 
-        
+        if (!createdUser) {
+          throw new HTTPException(500, {message: 'Could not create user!'});
+        }
 
         // TODO: next sign the token here, with auth middleware
         await issueSession(c, {
