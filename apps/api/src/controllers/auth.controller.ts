@@ -10,6 +10,7 @@ import { zValidator } from "@hono/zod-validator";
 import { db, users } from "@db/index";
 import { eq, or } from "drizzle-orm";
 import { HTTPException } from "hono/http-exception";
+import { issueSession } from "@/utils/issueSession";
 
 const factory = createFactory<{}>();
 
@@ -75,6 +76,11 @@ export const register = factory.createHandlers(
       }
 
       // TODO: next sign the token here, with auth middleware
+      await issueSession(c, {
+        id: createdUser.id,
+        username: createdUser.username,
+        email: createdUser.email
+      })
 
     } catch (error) {
       console.group("💥 Sekisho /auth/register - FAILED");
