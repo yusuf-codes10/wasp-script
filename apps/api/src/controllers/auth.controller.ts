@@ -1,11 +1,9 @@
 import { createFactory } from "hono/factory";
-import type { registerType } from "@shared/types/sekishoUser";
-import type { User } from "@shared/types/user";
+import type { User, jwtPayload } from "@shared/types/user";
 import type { Context } from 'hono';
 import {
   registerSchema,
   loginSchema,
-  fullUserSchema,
 } from "@shared/validation/sekishoUser";
 import { zValidator } from "@hono/zod-validator";
 import { db, users } from "@db/index";
@@ -168,7 +166,7 @@ export const logout = factory.createHandlers((c: Context) => {
 })
 
 export const verifyUser = factory.createHandlers(async (c: Context) => {
-  const payload = await c.get('jwtPayload') as User;
+  const payload = await c.get('jwtPayload') as jwtPayload;
 
   const [user] = await db.select()
   .from(users)
