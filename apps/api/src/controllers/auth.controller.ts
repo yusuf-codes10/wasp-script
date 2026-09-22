@@ -126,16 +126,25 @@ export const login = factory.createHandlers(
 
       console.log(data);
 
-      // check if user exists
-      // const [foundUser] = await db
-      //   .select()
-      //   .from(users)
-      //   .where(eq(users.username, toLogUser.username));
+      const { safeUser, token } = data as {safeUser: User, token: string};
 
-      // if (!foundUser)
-      //   throw new HTTPException(404, {
-      //     message: "User does not exist! Sign Up first",
-      //   });
+      // check if user exists
+      const [foundUser] = await db
+        .select()
+        .from(users)
+        .where(eq(users.username, safeUser.username));
+
+      if (!foundUser)
+        throw new HTTPException(404, {
+          message: "User does not exist! Sign Up first",
+        });
+
+        // issue the session
+        await issueSession(c, {
+          id: foundUser.id,
+          username: foundUser.username,
+          email: foundUser.email
+        })
 
       return c.json({ msg: "user logged in!" });
     } catch (error) {
