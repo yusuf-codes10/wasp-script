@@ -77,7 +77,7 @@ export const register = factory.createHandlers(
           username: safeUser.username,
           email: safeUser.email,
           fullName: safeUser.fullName,
-          createdAt: safeUser.createdAt,
+          createdAt: safeUser.createdAt ? new Date(safeUser.createdAt) : new Date(),
         })
         .returning();
 
