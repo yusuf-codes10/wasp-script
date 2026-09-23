@@ -1,4 +1,5 @@
 import { createFactory } from 'hono/factory';
+import { db } from '@db/index';
 
 const factory = createFactory();
 
