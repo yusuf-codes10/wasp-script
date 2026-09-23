@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { Challenge } from '@shared/types/challenge';
+
 const props = withDefaults(
   defineProps<{
-    title: string;
-    description: string;
+    challenge: Challenge
   }>(),
   {},
 );
@@ -12,8 +13,8 @@ const props = withDefaults(
   <div>
     <!-- card -->
     <div>
-      <h1>{{ props.title }}</h1>
-      <p>{{ props.description }}</p>
+      <h1>{{ props.challenge.title }}</h1>
+      <p>{{ props.challenge.description }}</p>
     </div>
   </div>
 </template>

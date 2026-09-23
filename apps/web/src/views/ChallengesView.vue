@@ -22,8 +22,7 @@ onMounted(async () => {
     <ChallengeUnit
       v-for="ch in challngs"
       :key="ch.id"
-      :title="ch.title"
-      :description="ch.description"
+      :challenge="ch"
     />
   </div>
 </template>
