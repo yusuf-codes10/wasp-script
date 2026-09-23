@@ -2,6 +2,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
 :root {
   --background: oklch(0.9901 0.0161 95.2193);
   --foreground: oklch(0.2138 0.0019 286.2347);
