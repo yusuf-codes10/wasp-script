@@ -5,6 +5,7 @@ import logger from '@/middlewares/logger';
 import catchAll from "./middlewares/catchAll";
 
 import authRouter from '@/routes/auth.route';
+import challengesRouter from '@/routes/challenge.route';
 
 const app = new Hono();
 
@@ -16,6 +17,7 @@ const user: NewUser = {
 app.use(logger);
 
 app.route('/', authRouter);
+app.route('/challenges', challengesRouter);
 
 app.get("/admin", (c) => {
   return c.json({ msg: "Hello Admin!" });
