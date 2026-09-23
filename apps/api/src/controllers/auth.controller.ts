@@ -12,6 +12,7 @@ import { HTTPException } from "hono/http-exception";
 import { issueSession } from "@/utils/issueSession";
 import { destroyToken } from "@/utils/destroyToken";
 
+// TODO: properly type this generic
 const factory = createFactory<{}>();
 
 export const register = factory.createHandlers(
