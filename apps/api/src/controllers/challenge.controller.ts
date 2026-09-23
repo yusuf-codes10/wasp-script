@@ -21,7 +21,7 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
         .limit(limit)
         .offset(skip)
         .orderBy(challenges.id);
-        return c.json({msg: 'all challenges', challs});
+        return c.json(challs);
     } catch (error) {
         console.log(error);
     }
