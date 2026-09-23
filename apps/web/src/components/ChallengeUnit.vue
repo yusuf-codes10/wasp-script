@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Challenge } from "@shared/types/challenge";
 import { useMarkdown } from "@/composables/useMarkdown";
+import { splitText } from "@/utils/splitText";
 
 const props = defineProps<{
   challenge: Challenge;
@@ -13,7 +14,7 @@ const difficultyClass: Record<string, string> = {
   legendary: "bg-[#1a0a2a] text-[#a855f7] border border-[#3a1a4a]",
 };
 
-const description = useMarkdown(props.challenge.description);
+const description = useMarkdown(splitText(props.challenge.description));
 </script>
 
 <template>
