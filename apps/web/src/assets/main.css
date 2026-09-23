@@ -183,3 +183,55 @@
     letter-spacing: var(--tracking-normal);
   }
 }
+
+@layer base {
+  .prose-waspscript {
+    --tw-prose-body: #d4d4d4;
+    --tw-prose-headings: #F0F0F0;
+    --tw-prose-bold: #F5C400;
+    --tw-prose-code: #F5C400;
+    --tw-prose-pre-bg: #0d0d0d;
+    --tw-prose-pre-code: #d4d4d4;
+    --tw-prose-bullets: #444;
+    --tw-prose-counters: #444;
+    --tw-prose-links: #F5C400;
+    --tw-prose-hr: #2a2a2a;
+    --tw-prose-quotes: #888;
+    --tw-prose-quote-borders: #F5C400;
+  }
+
+  /* inline code pill */
+  .prose-waspscript code:not(pre code) {
+    background: #1e1a00;
+    border: 0.5px solid #3a3000;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.85em;
+    color: #F5C400;
+    font-weight: 400;
+  }
+
+  /* code block */
+  .prose-waspscript pre {
+    background: #0d0d0d !important;
+    border: 0.5px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+  }
+
+  .prose-waspscript pre code {
+    color: #d4d4d4;
+    font-size: 0.875em;
+  }
+
+  /* bold gets yellow */
+  .prose-waspscript strong {
+    color: #F5C400;
+    font-weight: 500;
+  }
+
+  /* list items */
+  .prose-waspscript ul li::marker {
+    color: #F5C400;
+  }
+}

@@ -51,13 +51,16 @@ const description = useMarkdown(props.challenge.description);
     </h3>
 
     <!-- description -->
-     <div class="prose prose-invert prose-yellow" v-html="description" />
+    <div
+      class="prose prose-invert prose-waspscript max-w-none"
+      v-html="description"
+    />
     <!-- <p class="text-sm text-[#666] leading-relaxed mb-4 line-clamp-2">
       {{ props.challenge.description }}
     </p> -->
 
     <!-- footer -->
-     <!-- ! saved for later for the junction table -->
+    <!-- ! saved for later for the junction table -->
     <div
       class="flex items-center justify-between border-t border-[#1e1e1e] pt-3"
     >
