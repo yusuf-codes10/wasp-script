@@ -6,13 +6,16 @@ import catchAll from "./middlewares/catchAll";
 
 import authRouter from '@/routes/auth.route';
 import challengesRouter from '@/routes/challenge.route';
+import { cors } from "hono/cors";
 
 const app = new Hono();
 
-const user: NewUser = {
-  username: "claire",
-  email: "claire@gmail.com",
-};
+app.use('*', cors({
+  origin: 'http://localhost:5173', // my Vue dev server
+  allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // ← important for cookies
+}));
 
 app.use(logger);
 
