@@ -8,9 +8,19 @@ const factory = createFactory();
 
 export const getAllChallenges = factory.createHandlers(async (c) => {
 
+    const pageQuery = c.req.query('page');
+    const limitQuery = c.req.query('limit');
+
+    const page = Number(pageQuery) | 1;
+    const limit = Number(limitQuery) | 10;
+    const skip = (page - 1) * limit;
     try {
         const challs = await db.select()
-        .from(challenges);
+        .from(challenges)
+        .groupBy(challenges.id)
+        .limit(limit)
+        .offset(skip)
+        .orderBy(challenges.id);
         return c.json({msg: 'all challenges', challs});
     } catch (error) {
         console.log(error);
