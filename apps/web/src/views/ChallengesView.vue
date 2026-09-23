@@ -8,7 +8,7 @@ const challngs = ref<Challenge[]>([]);
 
 const loadChallenges = async () => {
   const data = await getAllChallenges();
-  challngs.value = data.challs;
+  challngs.value = data;
   console.log(data);
 }
 
