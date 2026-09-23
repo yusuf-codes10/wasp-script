@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Challenge } from "@shared/types/challenge";
+import { useMarkdown } from "@/composables/useMarkdown";
 
 const props = defineProps<{
   challenge: Challenge;
@@ -11,6 +12,8 @@ const difficultyClass: Record<string, string> = {
   hard: "bg-[#2a0f0f] text-[#E05252] border border-[#4a1a1a]",
   legendary: "bg-[#1a0a2a] text-[#a855f7] border border-[#3a1a4a]",
 };
+
+const description = useMarkdown(props.challenge.description);
 </script>
 
 <template>
@@ -48,9 +51,10 @@ const difficultyClass: Record<string, string> = {
     </h3>
 
     <!-- description -->
-    <p class="text-sm text-[#666] leading-relaxed mb-4 line-clamp-2">
+     <div class="prose prose-invert prose-yellow" v-html="description" />
+    <!-- <p class="text-sm text-[#666] leading-relaxed mb-4 line-clamp-2">
       {{ props.challenge.description }}
-    </p>
+    </p> -->
 
     <!-- footer -->
      <!-- ! saved for later for the junction table -->
