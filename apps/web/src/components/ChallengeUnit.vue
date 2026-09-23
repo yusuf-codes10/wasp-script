@@ -4,6 +4,13 @@ import type { Challenge } from "@shared/types/challenge";
 const props = defineProps<{
   challenge: Challenge;
 }>();
+
+const difficultyClass: Record<string, string> = {
+  easy: "bg-[#0f2a1a] text-[#4CAF72] border border-[#1a4a2a]",
+  medium: "bg-[#2a1a00] text-[#E6A800] border border-[#4a3000]",
+  hard: "bg-[#2a0f0f] text-[#E05252] border border-[#4a1a1a]",
+  legendary: "bg-[#1a0a2a] text-[#a855f7] border border-[#3a1a4a]",
+};
 </script>
 
 <template>
