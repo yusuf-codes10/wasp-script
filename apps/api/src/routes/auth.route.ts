@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { register, login, logout, verifyUser  } from '@/controllers/auth.controller';
+import { verifyToken } from '@/middlewares/verifyToken';
 
 const router = new Hono();
 
@@ -10,9 +11,9 @@ router.post('/register', ...register);
 router.post('/login', ...login);
 
 // logout
-router.post('/logout', ...logout);
+router.post('/logout', verifyToken, ...logout);
 
 // /me
-router.get('/me', ...verifyUser);
+router.get('/me', verifyToken, ...verifyUser);
 
 export default router;
