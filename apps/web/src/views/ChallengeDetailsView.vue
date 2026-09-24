@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { getChallengeById } from '@/services/challenges';
+import ChallengeDetails from '@/components/ChallengeDetails.vue';
 import type { Challenge } from '@shared/types/challenge';
 
 const route = useRoute();
