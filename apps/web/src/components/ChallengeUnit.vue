@@ -2,6 +2,9 @@
 import type { Challenge } from "@shared/types/challenge";
 import { useMarkdown } from "@/composables/useMarkdown";
 import { splitText } from "@/utils/splitText";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const props = defineProps<{
   challenge: Challenge;
@@ -15,6 +18,10 @@ const difficultyClass: Record<string, string> = {
 };
 
 const description = useMarkdown(splitText(props.challenge.description));
+
+const gotToDetails = (id: string) => {
+  router.push(`/${id}`);
+}
 </script>
 
 <template>
@@ -72,7 +79,7 @@ const description = useMarkdown(splitText(props.challenge.description));
         />
         {{ props.challenge ? "completed" : "not started" }}
       </div>
-      <i class="fa-solid fa-arrow-right-long text-[#333] text-lg group-hover:text-primary group-hover:translate-x-1 transition-all duration-150"></i>
+      <i @click="gotToDetails(props.challenge.id)" class="fa-solid fa-arrow-right-long text-[#333] text-lg group-hover:text-primary group-hover:translate-x-1 transition-all duration-150"></i>
     </div>
   </div>
 </template>
