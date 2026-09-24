@@ -20,7 +20,7 @@ const difficultyClass: Record<string, string> = {
 const description = useMarkdown(splitText(props.challenge.description));
 
 const gotToDetails = (id: string) => {
-  router.push(`/${id}`);
+  router.push(`/challenges/${id}`);
 }
 </script>
 
