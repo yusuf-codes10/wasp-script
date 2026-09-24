@@ -20,8 +20,12 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-red-500 text-4xl">
-    <h1>Challenges details</h1>
-    <p>{{route.params.id}}</p>
+  <div class="min-h-screen bg-[#0a0a0a] px-6 py-8">
+    <div v-if="challenge" class="max-w-4xl mx-auto">
+      <ChallengeDetails :challenge="challenge" />
+    </div>
+    <div v-else class="flex items-center justify-center h-64">
+      <span class="text-[#444] text-sm font-mono">loading...</span>
+    </div>
   </div>
 </template>
