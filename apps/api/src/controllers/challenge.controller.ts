@@ -26,3 +26,7 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
         console.log(error);
     }
 });
+
+export const getChallengeById = factory.createHandlers(async (c) => {
+    return c.json({});
+})
