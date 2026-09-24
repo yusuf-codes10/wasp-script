@@ -13,13 +13,11 @@ const routes = [
     path: "/challenges",
     name: "Challenges",
     component: ChallengesView,
-    children: [
-      {
-        path: ":id",
-        name: "Challenge",
-        component: ChallengeDetailsView,
-      },
-    ],
+  },
+  {
+    path: "/challenges/:id",
+    name: "Challenge",
+    component: ChallengeDetailsView,
   },
 ];
 
