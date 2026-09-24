@@ -5,3 +5,8 @@ export const getAllChallenges = async (): Promise<Challenge[]> => {
     const {data} = await api.get('/challenges');
     return data;
 }
+
+export const getChallengeById = async (id: number): Promise<Challenge> => {
+    const { data } = await api.get(`/challenges/${id}`);
+    return data;
+}
