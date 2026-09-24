@@ -72,9 +72,7 @@ const description = useMarkdown(splitText(props.challenge.description));
         />
         {{ props.challenge ? "completed" : "not started" }}
       </div>
-      <i
-        class="ti ti-arrow-right text-[#333] text-lg group-hover:text-primary group-hover:translate-x-1 transition-all duration-150"
-      />
+      <i class="fa-solid fa-arrow-right-long text-[#333] text-lg group-hover:text-primary group-hover:translate-x-1 transition-all duration-150"></i>
     </div>
   </div>
 </template>
