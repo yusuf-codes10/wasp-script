@@ -1,4 +1,5 @@
 import ChallengesView from "@/views/ChallengesView.vue";
+import ChallengeDetailsView from "@/views/ChallengeDetailsView.vue";
 import HomeView from "@/views/HomeView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -16,7 +17,7 @@ const routes = [
       {
         path: ":id",
         name: "Challenge",
-        component: ChallengesView,
+        component: ChallengeDetailsView,
       },
     ],
   },
