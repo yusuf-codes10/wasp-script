@@ -13,6 +13,7 @@
       "@shared/*": ["packages/shared/src/*"],
       "@db/*": ["packages/db/src/*"]
     },
+    "ignoreDeprecations": "6.0",
 
     // Bundler mode
     "moduleResolution": "bundler",
