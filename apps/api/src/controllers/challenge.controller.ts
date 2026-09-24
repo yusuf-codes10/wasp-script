@@ -1,8 +1,10 @@
 import { createFactory } from 'hono/factory';
 import { db } from '@db/index';
+import { eq } from 'drizzle-orm';
 import type { Challenge } from '@shared/types/challenge';
 import { selectChallengeSchema } from '@shared/validation/challenge';
 import { challenges } from '@db/schema';
+import { HTTPException } from 'hono/http-exception';
 
 const factory = createFactory();
 
@@ -28,5 +30,15 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
 });
 
 export const getChallengeById = factory.createHandlers(async (c) => {
-    return c.json({});
+    const id = c.req.param('id');
+    try {
+        const [foundChallenge] = await db.select()
+        .from(challenges)
+        .where(eq(challenges.id, Number(id)));
+
+        if (!foundChallenge) throw new HTTPException(404, {message: "challenge not found!"});
+        return c.json(foundChallenge);
+    } catch (error) {
+        console.log(error);
+    }
 })
