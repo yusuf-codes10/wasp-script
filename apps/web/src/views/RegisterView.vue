@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { useAuthStore } from '@/stores/authStore';
+
+const authStore = useAuthStore();
 
 const tab = ref<'login' | 'register'>('login');
 const showLoginPass = ref(false);
@@ -28,6 +31,10 @@ const strengthBg = (bar: number) => {
 
 const passwordsMatch = computed(() => confirmPassword.value && password.value === confirmPassword.value);
 const passwordsMismatch = computed(() => confirmPassword.value && password.value !== confirmPassword.value);
+
+const login = async (): Promise<void> => {
+  await authStore.login({username: username.value, password :password.value});
+}
 </script>
 
 <template>
@@ -83,7 +90,9 @@ const passwordsMismatch = computed(() => confirmPassword.value && password.value
               </div>
             </div>
 
-            <button class="w-full bg-primary text-primary-foreground font-bold text-[13px] py-2.5 rounded-md mt-6 hover:opacity-90 transition-opacity font-mono">
+            <button
+            @click="login"
+            class="w-full bg-primary text-primary-foreground font-bold text-[13px] py-2.5 rounded-md mt-6 hover:opacity-90 transition-opacity font-mono">
               sign_in()
             </button>
             <p class="text-center text-[11px] text-muted-foreground mt-4 font-mono">
