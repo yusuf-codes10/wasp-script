@@ -2,6 +2,7 @@
 import type { Challenge } from '@shared/types/challenge';
 import { useMarkdown } from '@/composables/useMarkdown';
 import { useRouter } from 'vue-router';
+import MainButton from './MainButton.vue';
 
 const router = useRouter();
 
@@ -57,10 +58,9 @@ const description = useMarkdown(props.challenge.description);
     </div>
 
     <div class="flex justify-end">
-      <button class="flex items-center gap-2 bg-primary text-primary-foreground font-medium text-sm px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-150">
-        <span>Submit solution</span>
+      <MainButton title="Submit solution" >
         <i class="fa-solid fa-paper-plane text-xs" />
-      </button>
+      </MainButton>
     </div>
 
   </div>
