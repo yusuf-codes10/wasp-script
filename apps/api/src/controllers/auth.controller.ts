@@ -126,7 +126,8 @@ export const login = factory.createHandlers(
 
       if (!response.ok) {
         // throw or return something
-        return c.json({ msg: "Login failed", error: data }, 400);
+        const error = await response.json() as { msg: string};
+        throw new HTTPException(400, { message: error.msg});
       }
 
       console.log(data);
