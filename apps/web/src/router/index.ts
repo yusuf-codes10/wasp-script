@@ -2,12 +2,18 @@ import ChallengesView from "@/views/ChallengesView.vue";
 import ChallengeDetailsView from "@/views/ChallengeDetailsView.vue";
 import HomeView from "@/views/HomeView.vue";
 import { createRouter, createWebHistory } from "vue-router";
+import RegisterView from "@/views/RegisterView.vue";
 
 const routes = [
   {
     path: "/",
     name: "Home",
     component: HomeView,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: RegisterView
   },
   {
     path: "/challenges",
