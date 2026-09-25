@@ -27,21 +27,13 @@ export const register = factory.createHandlers(
         },
       );
 
-      const data = await response.json();
-
-      console.log(body);
-
-      console.group("📡 Sekisho /auth/register");
-      console.log("Status    :", response.status, response.statusText);
-      console.log("Ok        :", response.ok);
-      console.log("Body      :", data);
-      console.groupEnd();
-
       if (!response.ok) {
         // return c.json({ msg: "Registration failed", error: data }, 400);
         const error = await response.json() as { msg: string};
         throw new HTTPException(400, { message: error.msg});
       }
+
+      const data = await response.json();
 
       // storing data in db & signin the token
       // ! type assertion: "As" is idiomatic here since the external data is unkwon
@@ -93,9 +85,7 @@ export const register = factory.createHandlers(
 
       return c.json({ msg: "user registered", createdUser });
     } catch (error) {
-      console.group("💥 Sekisho /auth/register - FAILED");
-      console.error("Error     :", error);
-      console.groupEnd();
+      console.log(error);
 
       if (error instanceof HTTPException) {
         return c.json({ msg: error.message }, error.status);
