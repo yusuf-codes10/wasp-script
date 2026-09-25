@@ -136,7 +136,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="heroRef" class="relative min-h bg-background flex items-center justify-center overflow-hidden cursor-none">
+  <div ref="heroRef" class="relative h-screen bg-background flex items-center justify-center overflow-hidden cursor-none">
 
     <canvas ref="canvasRef" class="absolute inset-0 w-full h-full" />
 
@@ -161,7 +161,7 @@ onMounted(() => {
 
       <button
         @click="router.push('/challenges')"
-        class="inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold text-[13px] px-6 py-3 rounded-lg font-mono hover:opacity-90 transition-opacity duration-150"
+        class="inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold text-[13px] px-6 py-3 rounded-lg font-mono hover:opacity-90 transition-opacity duration-150 cursor-pointer"
       >
         start drilling <span>→</span>
       </button>
