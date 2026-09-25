@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 @custom-variant dark (&:is(.dark *));
 
 @plugin "@tailwindcss/typography";
@@ -13,7 +15,8 @@
   --card-foreground: #F0F0F0;
   --popover: #111111;
   --popover-foreground: #F0F0F0;
-  --primary: oklch(0.8480 0.1563 82.4419); /* keep your yellow */
+  --primary: oklch(0.8480 0.1563 82.4419);
+  /* keep your yellow */
   --primary-foreground: #000000;
   --secondary: #1a1a1a;
   --secondary-foreground: #F0F0F0;
@@ -34,6 +37,9 @@
   --sidebar-accent-foreground: #F0F0F0;
   --sidebar-border: #1e1e1e;
   --sidebar-ring: oklch(0.8480 0.1563 82.4419);
+  --font-sans: 'JetBrains Mono', ui-monospace, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-serif: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 .dark {
@@ -132,8 +138,9 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono;
     letter-spacing: var(--tracking-normal);
   }
 }
