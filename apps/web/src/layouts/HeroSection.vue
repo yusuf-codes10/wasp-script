@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MainButton from '@/components/MainButton.vue';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -159,12 +160,7 @@ onMounted(() => {
         No fluff, just code.
       </p>
 
-      <button
-        @click="router.push('/challenges')"
-        class="inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold text-[13px] px-6 py-3 rounded-lg font-mono hover:opacity-90 transition-opacity duration-150 cursor-pointer"
-      >
-        start drilling <span>→</span>
-      </button>
+      <MainButton @click="router.push('/challenges')" title="start drilling →" />
     </div>
 
   </div>
