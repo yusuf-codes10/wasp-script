@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { RouterLink, useRoute, useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
+import { RouterLink, useRoute, useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/authStore";
 
 const route = useRoute();
 const router = useRouter();
@@ -8,21 +8,27 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 const links = [
-  { name: 'home', path: '/' },
-  { name: 'challenges', path: '/challenges' },
-  { name: 'leaderboard', path: '/leaderboard' },
-  { name: 'dashboard', path: '/dashboard' },
+  { name: "home", path: "/" },
+  { name: "challenges", path: "/challenges" },
+  { name: "leaderboard", path: "/leaderboard" },
+  { name: "dashboard", path: "/dashboard" },
 ];
 
+const logout = async (): Promise<void> => {
+  await authStore.logout();
+  router.push({name: 'Home'});
+}
 console.log(authStore.user);
-
 </script>
 
 <template>
-  <nav class="bg-card border-b border-border px-6 h-14 flex items-center justify-between">
-
+  <nav
+    class="bg-card border-b border-border px-6 h-14 flex items-center justify-between"
+  >
     <RouterLink to="/" class="flex items-center gap-2 no-underline">
-      <div class="w-7 h-7 bg-primary rounded-md flex items-center justify-center">
+      <div
+        class="w-7 h-7 bg-primary rounded-md flex items-center justify-center"
+      >
         <i class="fa-solid fa-bolt text-primary-foreground text-xs" />
       </div>
       <span class="text-[15px] font-semibold text-foreground tracking-tight">
@@ -45,16 +51,27 @@ console.log(authStore.user);
     <div></div>
 
     <div class="flex items-center gap-2.5">
+      <button
+        @click="logout"
+        class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-150 w-fit text-sm"
+      >
+        <span>logout</span>
+      </button>
       <span v-if="authStore.user">
         {{ authStore.user.username }}
       </span>
-      <button v-else @click="router.push('/register')" class="text-xs text-muted-foreground border border-border px-3.5 py-1.5 rounded-md hover:text-foreground hover:border-input transition-all duration-150 cursor-pointer">
+      <button
+        v-else
+        @click="router.push('/register')"
+        class="text-xs text-muted-foreground border border-border px-3.5 py-1.5 rounded-md hover:text-foreground hover:border-input transition-all duration-150 cursor-pointer"
+      >
         sign in
       </button>
-      <div class="w h rounded-full bg-secondary border border-border flex items-center justify-center text-[11px] text-primary font-semibold cursor-pointer">
+      <div
+        class="w h rounded-full bg-secondary border border-border flex items-center justify-center text-[11px] text-primary font-semibold cursor-pointer"
+      >
         YK
       </div>
     </div>
-
   </nav>
 </template>
