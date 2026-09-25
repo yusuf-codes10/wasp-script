@@ -9,6 +9,8 @@ const showConfirmPass = ref(false);
 const password = ref('');
 const confirmPassword = ref('');
 
+const username = ref<string>('');
+
 const strength = computed(() => {
   const v = password.value;
   let s = 0;
@@ -63,16 +65,16 @@ const passwordsMismatch = computed(() => confirmPassword.value && password.value
                 <label class="block text-[11px] text-muted-foreground mb-1.5 tracking-wider">USERNAME</label>
                 <div class="relative">
                   <i class="fa-solid fa-user absolute left-3 top-1/2 -translate-y-1/2 text-[#444] text-xs peer-focus:text-primary" />
-                  <input type="text" placeholder="johnmarston"
+                  <input type="text" placeholder="johnmarston" v-model="username"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-3 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors" />
-                </div>
+                  </div>
               </div>
 
               <div>
                 <label class="block text-[11px] text-muted-foreground mb-1.5 tracking-wider">PASSWORD</label>
                 <div class="relative">
                   <i class="fa-solid fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-[#444] text-xs" />
-                  <input :type="showLoginPass ? 'text' : 'password'" placeholder="••••••••"
+                  <input :type="showLoginPass ? 'text' : 'password'" placeholder="••••••••" v-model="password"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-9 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors" />
                   <button @click="showLoginPass = !showLoginPass" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#444] hover:text-primary transition-colors">
                     <i :class="showLoginPass ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'" class="text-xs" />
