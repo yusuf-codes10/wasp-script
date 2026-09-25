@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useAuthStore } from '@/stores/authStore';
+import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
+const router = useRouter();
 
 const tab = ref<'login' | 'register'>('login');
 const showLoginPass = ref(false);
@@ -34,6 +36,7 @@ const passwordsMismatch = computed(() => confirmPassword.value && password.value
 
 const login = async (): Promise<void> => {
   await authStore.login({username: username.value, password :password.value});
+  router.push({name: 'Challenges'});
 }
 </script>
 
