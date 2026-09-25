@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-import type { registerType } from '@shared/types/sekishoUser';
+import type { registerType, loginType } from '@shared/types/sekishoUser';
 import api from '@/services/api';
 
 export const useAuthStore = defineStore('auth', () => {
@@ -10,8 +10,13 @@ export const useAuthStore = defineStore('auth', () => {
     await api.post('/register', credantials);
   }
 
+  const login = async (credantials: loginType): Promise<void> => {
+    await api.post('/login', credantials);
+  }
+
   return {
     user,
-    register
+    register,
+    login
   }
 })
