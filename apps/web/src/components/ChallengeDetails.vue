@@ -22,46 +22,42 @@ const description = useMarkdown(props.challenge.description);
 <template>
   <div class="flex flex-col gap-6">
 
-    <!-- back button -->
-    <button @click="router.back()" class="flex items-center gap-2 text-[#555] hover:text-[#F0F0F0] transition-colors duration-150 w-fit text-sm">
+    <button @click="router.back()" class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-150 w-fit text-sm">
       <i class="fa-solid fa-arrow-left-long" />
       <span>back to challenges</span>
     </button>
 
-    <!-- header card -->
-    <div class="bg-[#111111] border border-[#2a2a2a] rounded-xl px-6 py-5">
+    <div class="bg-card border border-border rounded-xl px-6 py-5">
       <div class="flex items-center justify-between mb-4">
         <div class="flex gap-2">
           <span :class="difficultyClass[props.challenge.difficulty]" class="text-[11px] font-medium px-3 py-0.5 rounded-full">
             {{ props.challenge.difficulty }}
           </span>
-          <span class="text-[11px] font-medium px-3 py-0.5 rounded-full bg-[#1e1a00] text-primary border border-[#3a3000]">
+          <span class="text-[11px] font-medium px-3 py-0.5 rounded-full bg-secondary text-primary border border-border">
             {{ props.challenge.category }}
           </span>
         </div>
-        <span class="text-xs text-[#444] font-mono">#{{ String(props.challenge.id).padStart(2, '0') }}</span>
+        <span class="text-xs text-muted-foreground font-mono">#{{ String(props.challenge.id).padStart(2, '0') }}</span>
       </div>
-      <h1 class="text-xl font-semibold text-[#F0F0F0] mb-4">{{ props.challenge.title }}</h1>
+      <h1 class="text-xl font-semibold text-foreground mb-4">{{ props.challenge.title }}</h1>
       <div class="prose prose-invert prose-waspscript max-w-none text-sm" v-html="description" />
     </div>
 
-    <!-- code editor card -->
-    <div class="bg-[#111111] border border-[#2a2a2a] rounded-xl overflow-hidden">
-      <div class="flex items-center justify-between px-4 py-2 border-b border-[#1e1e1e]">
-        <span class="text-xs text-[#444] font-mono">solution.js</span>
-        <span class="w-2 h-2 rounded-full bg-[#2a2a2a]" />
+    <div class="bg-card border border-border rounded-xl overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-2 border-b border-border">
+        <span class="text-xs text-muted-foreground font-mono">solution.js</span>
+        <span class="w-2 h-2 rounded-full bg-muted" />
       </div>
       <textarea
         :value="props.challenge.startCode"
         rows="10"
         spellcheck="false"
-        class="w-full bg-transparent px-4 py-4 text-sm font-mono text-[#c9d1d9] resize-none outline-none focus:outline-none leading-relaxed"
+        class="w-full bg-transparent px-4 py-4 text-sm font-mono text-foreground resize-none outline-none focus:outline-none leading-relaxed"
       />
     </div>
 
-    <!-- submit -->
     <div class="flex justify-end">
-      <button class="flex items-center gap-2 bg-primary text-black font-medium text-sm px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-150">
+      <button class="flex items-center gap-2 bg-primary text-primary-foreground font-medium text-sm px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-150">
         <span>Submit solution</span>
         <i class="fa-solid fa-paper-plane text-xs" />
       </button>
