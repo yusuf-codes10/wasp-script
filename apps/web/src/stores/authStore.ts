@@ -14,7 +14,18 @@ export const useAuthStore = defineStore('auth', () => {
     await api.post('/login', credantials);
   }
 
-  const logout = async () => {
+  const fetchUser = async () => {
+    try {
+        const res = await api.get('/me');
+        user.value = res.data.user;
+        console.log(user.value);
+    } catch (error) {
+        console.log(error);
+        user.value = null; // cookie expired
+    }
+  }
+
+  const logout = async (): Promise<void> => {
     await api.post('/logout');
     user.value = null;
   }
@@ -23,6 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     register,
     login,
-    logout
+    logout,
+    fetchUser
   }
 })
