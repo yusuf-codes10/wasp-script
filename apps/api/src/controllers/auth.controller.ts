@@ -96,7 +96,7 @@ export const register = factory.createHandlers(
       console.groupEnd();
 
       if (error instanceof HTTPException) {
-        throw error; // let Hono handle it with the right status
+        return c.json({ msg: error.message }, error.status);
       }
 
       return c.json({ msg: "Internal error" }, 500);
@@ -158,7 +158,7 @@ export const login = factory.createHandlers(
       console.groupEnd();
 
       if (error instanceof HTTPException) {
-        throw error; // let Hono handle it with the right status
+        return c.json({ msg: error.message }, error.status); // handle the error in the api
       }
 
       return c.json({ msg: "Internal error" }, 500);
