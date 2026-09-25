@@ -118,20 +118,13 @@ export const login = factory.createHandlers(
         body: JSON.stringify(toLogUser),
       });
 
-      const data = await response.json();
-
-      console.group("📡 Sekisho /auth/login");
-      console.log("Status    :", response.status, response.statusText);
-      console.log("Ok        :", response.ok);
-      console.log("Body      :", data);
-      console.groupEnd();
-
       if (!response.ok) {
         // throw or return something
         const error = await response.json() as { msg: string};
         throw new HTTPException(400, { message: error.msg});
       }
 
+      const data = await response.json();
       console.log(data);
 
       const { safeUser, token } = data as { safeUser: User; token: string };
@@ -156,9 +149,7 @@ export const login = factory.createHandlers(
 
       return c.json({ msg: "user logged in!" });
     } catch (error) {
-      console.group("💥 Sekisho /auth/login - FAILED");
-      console.error("Error     :", error);
-      console.groupEnd();
+      console.log(error);
 
       if (error instanceof HTTPException) {
         return c.json({ msg: error.message }, error.status); // handle the error in the api

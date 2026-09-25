@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { useAuthStore } from '@/stores/authStore';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -36,11 +37,15 @@ const passwordsMatch = computed(() => confirmPassword.value && password.value ==
 const passwordsMismatch = computed(() => confirmPassword.value && password.value !== confirmPassword.value);
 
 const login = async (): Promise<void> => {
+  error.value = '';
   try {
     await authStore.login({username: username.value, password :password.value});
     router.push({name: 'Challenges'});
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
+    if (axios.isAxiosError(err)) {
+      error.value = err.response?.data.msg;
+    }
   }
 }
 </script>
@@ -96,6 +101,12 @@ const login = async (): Promise<void> => {
                   </button>
                 </div>
               </div>
+            </div>
+
+            <div>
+              <p class="text-red-500 text-3xl">
+                {{ error }}
+              </p>
             </div>
 
             <button
