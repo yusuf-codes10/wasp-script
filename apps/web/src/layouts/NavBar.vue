@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, useRoute, useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
 
 const route = useRoute();
 const router = useRouter();
+
+const authStore = useAuthStore();
 
 const links = [
   { name: 'home', path: '/' },
@@ -10,6 +13,9 @@ const links = [
   { name: 'leaderboard', path: '/leaderboard' },
   { name: 'dashboard', path: '/dashboard' },
 ];
+
+console.log(authStore.user);
+
 </script>
 
 <template>
@@ -36,8 +42,13 @@ const links = [
       </RouterLink>
     </div>
 
+    <div></div>
+
     <div class="flex items-center gap-2.5">
-      <button @click="router.push('/register')" class="text-xs text-muted-foreground border border-border px-3.5 py-1.5 rounded-md hover:text-foreground hover:border-input transition-all duration-150 cursor-pointer">
+      <span v-if="authStore.user">
+        {{ authStore.user.username }}
+      </span>
+      <button v-else @click="router.push('/register')" class="text-xs text-muted-foreground border border-border px-3.5 py-1.5 rounded-md hover:text-foreground hover:border-input transition-all duration-150 cursor-pointer">
         sign in
       </button>
       <div class="w h rounded-full bg-secondary border border-border flex items-center justify-center text-[11px] text-primary font-semibold cursor-pointer">
