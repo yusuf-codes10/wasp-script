@@ -20,13 +20,13 @@ const routes = [
     path: "/challenges",
     name: "Challenges",
     component: ChallengesView,
-    // meta: { requiresAuth: true }
+    meta: { requiresAuth: true }
   },
   {
     path: "/challenges/:id",
     name: "Challenge",
     component: ChallengeDetailsView,
-    // meta: { requiresAuth: true }
+    meta: { requiresAuth: true }
   },
 ];
 
