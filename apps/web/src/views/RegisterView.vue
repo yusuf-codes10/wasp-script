@@ -15,6 +15,7 @@ const password = ref('');
 const confirmPassword = ref('');
 
 const username = ref<string>('');
+const error = ref<string>('');
 
 const strength = computed(() => {
   const v = password.value;
@@ -35,8 +36,12 @@ const passwordsMatch = computed(() => confirmPassword.value && password.value ==
 const passwordsMismatch = computed(() => confirmPassword.value && password.value !== confirmPassword.value);
 
 const login = async (): Promise<void> => {
-  await authStore.login({username: username.value, password :password.value});
-  router.push({name: 'Challenges'});
+  try {
+    await authStore.login({username: username.value, password :password.value});
+    router.push({name: 'Challenges'});
+  } catch (error) {
+    console.log(error);
+  }
 }
 </script>
 

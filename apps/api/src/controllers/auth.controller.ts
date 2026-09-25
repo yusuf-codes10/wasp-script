@@ -1,10 +1,7 @@
 import { createFactory } from "hono/factory";
 import type { User, jwtPayload } from "@shared/types/user";
-import type { Context } from 'hono';
-import {
-  registerSchema,
-  loginSchema,
-} from "@shared/validation/sekishoUser";
+import type { Context } from "hono";
+import { registerSchema, loginSchema } from "@shared/validation/sekishoUser";
 import { zValidator } from "@hono/zod-validator";
 import { db, users } from "@db/index";
 import { eq, or } from "drizzle-orm";
@@ -98,6 +95,10 @@ export const register = factory.createHandlers(
       console.error("Error     :", error);
       console.groupEnd();
 
+      if (error instanceof HTTPException) {
+        throw error; // let Hono handle it with the right status
+      }
+
       return c.json({ msg: "Internal error" }, 500);
     }
   },
@@ -156,6 +157,10 @@ export const login = factory.createHandlers(
       console.error("Error     :", error);
       console.groupEnd();
 
+      if (error instanceof HTTPException) {
+        throw error; // let Hono handle it with the right status
+      }
+
       return c.json({ msg: "Internal error" }, 500);
     }
   },
@@ -164,14 +169,12 @@ export const login = factory.createHandlers(
 export const logout = factory.createHandlers((c: Context) => {
   destroyToken(c);
   return c.json({ msg: "logged out succesfuly!" });
-})
+});
 
 export const verifyUser = factory.createHandlers(async (c: Context) => {
-  const payload = await c.get('jwtPayload') as jwtPayload;
+  const payload = (await c.get("jwtPayload")) as jwtPayload;
 
-  const [user] = await db.select()
-  .from(users)
-  .where(eq(users.id, payload.id));
+  const [user] = await db.select().from(users).where(eq(users.id, payload.id));
 
-  return c.json({user})
+  return c.json({ user });
 });
