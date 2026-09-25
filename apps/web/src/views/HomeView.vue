@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import NavBar from '@/layouts/NavBar.vue';
-
-
+import HeroSection from '@/layouts/HeroSection.vue';
 </script>
 
 <template>
   <div>
-    <NavBar />
-    <h1>Home Page</h1>
+    <HeroSection />
   </div>
 </template>
