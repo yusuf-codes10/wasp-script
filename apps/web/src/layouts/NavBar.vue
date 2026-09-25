@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { RouterLink, useRoute } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
+const router = useRouter();
 
 const links = [
   { name: 'home', path: '/' },
@@ -36,7 +37,7 @@ const links = [
     </div>
 
     <div class="flex items-center gap-2.5">
-      <button class="text-xs text-muted-foreground border border-border px-3.5 py-1.5 rounded-md hover:text-foreground hover:border-input transition-all duration-150">
+      <button @click="router.push('/register')" class="text-xs text-muted-foreground border border-border px-3.5 py-1.5 rounded-md hover:text-foreground hover:border-input transition-all duration-150 cursor-pointer">
         sign in
       </button>
       <div class="w h rounded-full bg-secondary border border-border flex items-center justify-center text-[11px] text-primary font-semibold cursor-pointer">
