@@ -38,7 +38,9 @@ export const register = factory.createHandlers(
       console.groupEnd();
 
       if (!response.ok) {
-        return c.json({ msg: "Registration failed", error: data }, 400);
+        // return c.json({ msg: "Registration failed", error: data }, 400);
+        const error = await response.json() as { msg: string};
+        throw new HTTPException(400, { message: error.msg});
       }
 
       // storing data in db & signin the token
