@@ -1,5 +1,6 @@
 import { createFactory } from "hono/factory";
 import Groq from "groq-sdk";
+import type { Challenge } from '@shared/types/challenge';
 
 const factroy = createFactory<{}>();
 
