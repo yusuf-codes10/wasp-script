@@ -26,6 +26,13 @@ const difficultyEnum = pgEnum("difficulty", [
   "legendary",
 ]);
 
+type TestCase = {
+  input: string | number | boolean | unknown[] | Record<string, unknown> | null;
+  expected: string | number | boolean | unknown[] | Record<string, unknown> | null;
+  key?: string;      // for sortByKey, groupBy
+  target?: number;   // for findPairs
+}
+
 export const users = pgTable("users", {
   id: bigint("id", { mode: "number" }).primaryKey(),
   username: text("username").unique().notNull(),
@@ -41,7 +48,7 @@ export const challenges = pgTable("challenges", {
   difficulty: difficultyEnum("difficulty").notNull(),
   category: categoryEnum("category").notNull(),
   startCode: text("startCode").notNull(),
-  testCases: jsonb('testCases').notNull().$type<{ input: string; expected: string }[]>(),
+  testCases: jsonb('testCases').notNull().$type<TestCase[]>(),
   createdAt: timestamp("createdAt").defaultNow(),
 });
 
