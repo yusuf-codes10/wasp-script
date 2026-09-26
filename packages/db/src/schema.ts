@@ -28,7 +28,7 @@ const difficultyEnum = pgEnum("difficulty", [
 
 type TestCase = {
   input: string | number | boolean | unknown[] | Record<string, unknown> | null;
-  expected: string | number | boolean | unknown[] | Record<string, unknown> | null;
+  expected: string | number | boolean | undefined | unknown[] | Record<string, unknown> | null;
   key?: string;      // for sortByKey, groupBy
   target?: number;   // for findPairs
 }
