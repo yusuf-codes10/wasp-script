@@ -3,6 +3,7 @@ import type { Challenge } from '@shared/types/challenge';
 import { useMarkdown } from '@/composables/useMarkdown';
 import { useRouter } from 'vue-router';
 import MainButton from './MainButton.vue';
+import { VueMonacoEditor } from '@guolao/vue-monaco-editor';
 
 const router = useRouter();
 
