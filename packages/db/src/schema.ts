@@ -4,6 +4,7 @@ import {
   bigint,
   text,
   timestamp,
+  jsonb,
   pgEnum,
 } from "drizzle-orm/pg-core";
 
@@ -40,6 +41,7 @@ export const challenges = pgTable("challenges", {
   difficulty: difficultyEnum("difficulty").notNull(),
   category: categoryEnum("category").notNull(),
   startCode: text("startCode").notNull(),
+  testCases: jsonb('testCases').$type<{ input: string; expected: string }[]>(),
   createdAt: timestamp("createdAt").defaultNow(),
 });
 
