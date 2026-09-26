@@ -75,7 +75,7 @@ const description = useMarkdown(props.challenge.description);
       <VueMonacoEditor
         v-model:value="props.challenge.startCode"
         language="javascript"
-        theme="vs-dark"
+        theme="hc-black"
         style="height: 400px; width: 100%"
       />
     </div>
