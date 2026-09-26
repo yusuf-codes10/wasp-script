@@ -13,7 +13,6 @@ const factroy = createFactory<{}>();
 const client = new Groq(); // picks up GROQ_API_KEY from env automatically
 
 export const getChallengeResult = factroy.createHandlers( zValidator('json', promptSchema), async (c) => {
-  const prompt = "";
 
   const body = c.req.valid('json');
   const { code, challengeId} = body;
@@ -49,7 +48,7 @@ export const getChallengeResult = factroy.createHandlers( zValidator('json', pro
         },
       ],
     });
-    return c.json({});
+    return c.json(completion);
   } catch (error) {
     console.log(error);
   }
