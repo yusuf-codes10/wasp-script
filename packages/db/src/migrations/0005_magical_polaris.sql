@@ -1,0 +1,1 @@
+ALTER TABLE "challenges" ALTER COLUMN "testCases" SET NOT NULL;
