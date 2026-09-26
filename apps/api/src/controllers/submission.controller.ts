@@ -26,7 +26,7 @@ export const getChallengeResult = factroy.createHandlers( zValidator('json', pro
     if (!foundChallenge) throw new HTTPException(500, {message: 'something went wrong! No such Challenge'});
 
     const completion = await client.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-20b",
       max_tokens: 1024,
       messages: [
         {
@@ -50,6 +50,7 @@ export const getChallengeResult = factroy.createHandlers( zValidator('json', pro
     });
     return c.json(completion);
   } catch (error) {
-    console.log(error);
+        console.error(error);
+    throw new HTTPException(500, { message: 'Something went wrong with the AI evaluation' })
   }
 });
