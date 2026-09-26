@@ -6,6 +6,7 @@ import catchAll from "./middlewares/catchAll";
 
 import authRouter from '@/routes/auth.route';
 import challengesRouter from '@/routes/challenge.route';
+import submissionRouter from '@/routes/submission.route';
 import { cors } from "hono/cors";
 
 const app = new Hono();
@@ -21,6 +22,7 @@ app.use(logger);
 
 app.route('/', authRouter);
 app.route('/challenges', challengesRouter);
+app.route('/submission', submissionRouter);
 
 app.get("/admin", (c) => {
   return c.json({ msg: "Hello Admin!" });
