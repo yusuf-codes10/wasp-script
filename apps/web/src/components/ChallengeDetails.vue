@@ -4,6 +4,7 @@ import { useMarkdown } from "@/composables/useMarkdown";
 import { useRouter } from "vue-router";
 import MainButton from "./MainButton.vue";
 import { VueMonacoEditor } from "@guolao/vue-monaco-editor";
+import { computed } from "vue";
 
 const router = useRouter();
 
@@ -17,6 +18,14 @@ const difficultyClass: Record<string, string> = {
   hard: "bg-[#2a0f0f] text-[#E05252] border border-[#4a1a1a]",
   legendary: "bg-[#1a0a2a] text-[#a855f7] border border-[#3a1a4a]",
 };
+
+// Calculate height based on line count
+const editorHeight = computed(() => {
+  const lineCount = props.challenge.startCode.split("\n").length;
+  const lineHeight = 19; // Monaco's default line height in px
+  const padding = 16; // a little breathing room
+  return `${lineCount * lineHeight + padding}px`;
+});
 
 const description = useMarkdown(props.challenge.description);
 </script>
@@ -66,17 +75,20 @@ const description = useMarkdown(props.challenge.description);
         <span class="text-xs text-muted-foreground font-mono">solution.js</span>
         <span class="w-2 h-2 rounded-full bg-muted" />
       </div>
-      <!-- <textarea
-        :value="props.challenge.startCode"
-        rows="10"
-        spellcheck="false"
-        class="w-full bg-transparent px-4 py-4 text-sm font-mono text-foreground resize-none outline-none focus:outline-none leading-relaxed"
-      /> -->
+
       <VueMonacoEditor
         v-model:value="props.challenge.startCode"
         language="javascript"
         theme="hc-black"
-        style="height: 400px; width: 100%"
+        :style="{ height: editorHeight, width: '100%' }"
+        :options="{
+          automaticLayout: true,
+          scrollBeyondLastLine: false,
+          fontSize: 14,
+          lineNumbers: 'on',
+          minimap: { enabled: false },
+          scrollbar: { vertical: 'hidden', horizontal: 'hidden' },
+        }"
       />
     </div>
 
