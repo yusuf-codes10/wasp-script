@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import type { NewUser } from "@shared/types/user";
 
 import logger from '@/middlewares/logger';
 import catchAll from "./middlewares/catchAll";

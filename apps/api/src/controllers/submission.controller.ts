@@ -10,9 +10,9 @@ import { HTTPException } from "hono/http-exception";
 
 const factroy = createFactory<{}>();
 
-const client = new Groq(); // picks up GROQ_API_KEY from env automatically
 
 export const getChallengeResult = factroy.createHandlers( zValidator('json', promptSchema), async (c) => {
+  const client = new Groq(); // picks up GROQ_API_KEY from env automatically
 
   const body = c.req.valid('json');
   const { code, challengeId} = body;
