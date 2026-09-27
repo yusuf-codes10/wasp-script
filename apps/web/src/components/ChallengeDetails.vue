@@ -92,6 +92,12 @@ const description = useMarkdown(props.challenge.description);
       />
     </div>
 
+    <!-- ! Submission Response -->
+
+    <div>
+      
+    </div>
+
     <div class="flex justify-end">
       <MainButton title="Submit solution">
         <i class="fa-solid fa-paper-plane text-xs" />
