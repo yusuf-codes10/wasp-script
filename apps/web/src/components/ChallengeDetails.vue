@@ -24,7 +24,7 @@ const userCode = ref<string>(props.challenge.startCode);
 const WaspScriptResponse = ref<string | null>(null);
 const error = ref<string>();
 
-const editorHeight = ref('0px')
+const editorHeight = ref("0px");
 
 const description = useMarkdown(props.challenge.description);
 
@@ -46,15 +46,15 @@ const submitAnswer = async () => {
 const handleMount = (editor: any) => {
   // set initial height
   const updateHeight = () => {
-    const contentHeight = editor.getContentHeight()
-    editorHeight.value = `${contentHeight}px`
-  }
+    const contentHeight = editor.getContentHeight();
+    editorHeight.value = `${contentHeight}px`;
+  };
 
-  updateHeight()
+  updateHeight();
 
   // update height whenever content changes
-  editor.onDidContentSizeChange(updateHeight)
-}
+  editor.onDidContentSizeChange(updateHeight);
+};
 </script>
 
 <template>
@@ -95,28 +95,30 @@ const handleMount = (editor: any) => {
       />
     </div>
 
-  <div class="bg-card border border-border rounded-xl flex flex-col">
-    <div class="flex items-center justify-between px-4 py-2 border-b border-border shrink-0">
-      <span class="text-xs text-muted-foreground font-mono">solution.js</span>
-      <span class="w-2 h-2 rounded-full bg-muted" />
-    </div>
+    <div class="bg-card border border-border rounded-xl flex flex-col">
+      <div
+        class="flex items-center justify-between px-4 py-2 border-b border-border shrink-0"
+      >
+        <span class="text-xs text-muted-foreground font-mono">solution.js</span>
+        <span class="w-2 h-2 rounded-full bg-muted" />
+      </div>
 
-    <VueMonacoEditor
-      v-model:value="userCode"
-      language="javascript"
-      theme="hc-black"
-      :style="{ height: editorHeight, width: '100%' }"
-      :options="{
-        automaticLayout: true,
-        scrollBeyondLastLine: false,
-        fontSize: 14,
-        lineNumbers: 'on',
-        minimap: { enabled: false },
-        scrollbar: { vertical: 'hidden', horizontal: 'hidden' },
-      }"
-      @mount="handleMount"
-    />
-  </div>
+      <VueMonacoEditor
+        v-model:value="userCode"
+        language="javascript"
+        theme="hc-black"
+        :style="{ height: editorHeight, width: '100%' }"
+        :options="{
+          automaticLayout: true,
+          scrollBeyondLastLine: false,
+          fontSize: 14,
+          lineNumbers: 'on',
+          minimap: { enabled: false },
+          scrollbar: { vertical: 'hidden', horizontal: 'hidden' },
+        }"
+        @mount="handleMount"
+      />
+    </div>
 
     <!-- ! Submission Response -->
     <Transition name="fade">
@@ -162,8 +164,8 @@ const handleMount = (editor: any) => {
       </div>
     </Transition>
 
-    <div class="flex justify-end" @click="submitAnswer">
-      <MainButton title="Submit solution">
+    <div class="flex w-full md:justify-end" @click="submitAnswer">
+      <MainButton class="w-full sm:w-auto" title="Submit solution">
         <i class="fa-solid fa-paper-plane text-xs" />
       </MainButton>
     </div>
