@@ -4,7 +4,7 @@ import { useMarkdown } from "@/composables/useMarkdown";
 import { useRouter } from "vue-router";
 import MainButton from "./MainButton.vue";
 import { VueMonacoEditor } from "@guolao/vue-monaco-editor";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { submitResponse } from "@/services/submissions.ts";
 
 const router = useRouter();
@@ -25,14 +25,6 @@ const WaspScriptResponse = ref<string | null>(null);
 const error = ref<string>();
 
 const editorHeight = ref('0px')
-
-// Calculate height based on line count
-// const editorHeight = computed(() => {
-//   const lineCount = props.challenge.startCode.split("\n").length;
-//   const lineHeight = 19; // Monaco's default line height in px
-//   const padding = 16; // a little breathing room
-//   return `${lineCount * lineHeight + padding}px`;
-// });
 
 const description = useMarkdown(props.challenge.description);
 
