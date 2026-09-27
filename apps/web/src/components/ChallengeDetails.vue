@@ -4,7 +4,8 @@ import { useMarkdown } from "@/composables/useMarkdown";
 import { useRouter } from "vue-router";
 import MainButton from "./MainButton.vue";
 import { VueMonacoEditor } from "@guolao/vue-monaco-editor";
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import { submitResponse } from '@/services/submissions.ts';
 
 const router = useRouter();
 
@@ -19,6 +20,8 @@ const difficultyClass: Record<string, string> = {
   legendary: "bg-[#1a0a2a] text-[#a855f7] border border-[#3a1a4a]",
 };
 
+const error = ref<string>();
+
 // Calculate height based on line count
 const editorHeight = computed(() => {
   const lineCount = props.challenge.startCode.split("\n").length;
@@ -28,6 +31,15 @@ const editorHeight = computed(() => {
 });
 
 const description = useMarkdown(props.challenge.description);
+
+const submitAnswer = async () => {
+  try {
+    await submitResponse();
+  } catch (err) {
+    console.log(err);
+    // error.value = err;
+  }
+}
 </script>
 
 <template>
