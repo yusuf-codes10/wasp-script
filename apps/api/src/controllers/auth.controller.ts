@@ -29,8 +29,8 @@ export const register = factory.createHandlers(
 
       if (!response.ok) {
         // return c.json({ msg: "Registration failed", error: data }, 400);
-        const error = await response.json() as { msg: string};
-        throw new HTTPException(400, { message: error.msg});
+        const error = (await response.json()) as { msg: string };
+        throw new HTTPException(400, { message: error.msg });
       }
 
       const data = await response.json();
@@ -108,10 +108,17 @@ export const login = factory.createHandlers(
         body: JSON.stringify(toLogUser),
       });
 
+      //! parsing non json string
       if (!response.ok) {
-        // throw or return something
-        const error = await response.json() as { msg: string};
-        throw new HTTPException(400, { message: error.msg});
+        const text = await response.text();
+        let msg: string;
+        try {
+          const error = JSON.parse(text) as { msg: string };
+          msg = error.msg;
+        } catch {
+          msg = text;
+        }
+        throw new HTTPException(400, { message: msg });
       }
 
       const data = await response.json();
