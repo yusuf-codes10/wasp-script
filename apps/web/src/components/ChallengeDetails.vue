@@ -36,7 +36,8 @@ const description = useMarkdown(props.challenge.description);
 
 const submitAnswer = async () => {
   try {
-    await submitResponse({ code :});
+    const data = await submitResponse({ code: userCode.value, challengeId: props.challenge.id});
+    console.log(data);
   } catch (err) {
     console.log(err);
     // error.value = err;
@@ -112,7 +113,7 @@ const submitAnswer = async () => {
       
     </div>
 
-    <div class="flex justify-end">
+    <div class="flex justify-end" @click="submitAnswer">
       <MainButton title="Submit solution">
         <i class="fa-solid fa-paper-plane text-xs" />
       </MainButton>
