@@ -22,6 +22,7 @@ const difficultyClass: Record<string, string> = {
 
 
 const userCode = ref<string>(props.challenge.startCode);
+const WaspScriptResponse = ref<string | null>(null);
 const error = ref<string>()
 
 // Calculate height based on line count
@@ -37,6 +38,8 @@ const description = useMarkdown(props.challenge.description);
 const submitAnswer = async () => {
   try {
     const data = await submitResponse({ code: userCode.value, challengeId: props.challenge.id});
+    const { role, content, reasoning } = data;
+    WaspScriptResponse.value = content;
     console.log(data);
   } catch (err) {
     console.log(err);
@@ -108,9 +111,12 @@ const submitAnswer = async () => {
     </div>
 
     <!-- ! Submission Response -->
+     <p class="text-2xl text-blue-500">
 
+        {{ WaspScriptResponse }}
+     </p>
     <div>
-      
+
     </div>
 
     <div class="flex justify-end" @click="submitAnswer">
