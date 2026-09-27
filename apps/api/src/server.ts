@@ -11,7 +11,7 @@ import { cors } from "hono/cors";
 const app = new Hono();
 
 app.use('*', cors({
-  origin: 'http://localhost:5173', // my Vue dev server
+  origin: process.env.CORS_ORIGIN ?? 'http://localhost:5173', // my Vue dev server
   allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // ← important for cookies
