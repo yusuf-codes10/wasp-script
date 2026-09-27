@@ -6,6 +6,7 @@ import { challenges } from "@db/schema";
 import { eq } from "drizzle-orm";
 import { promptSchema } from "@shared/validation/submission";
 import { HTTPException } from "hono/http-exception";
+import type { AIAnswer } from '@shared/types/submission';
 
 const factroy = createFactory<{}>();
 
@@ -58,6 +59,14 @@ export const getChallengeResult = factroy.createHandlers(
           },
         ],
       });
+
+      const message = completion.choices[0]?.message;
+
+      const answer: AIAnswer = {
+        role: message.role,
+        content: message.content,
+        reasoning: message.reasoning
+      }
       return c.json(completion);
     } catch (error) {
       console.error(error);
