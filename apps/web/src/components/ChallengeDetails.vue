@@ -24,13 +24,15 @@ const userCode = ref<string>(props.challenge.startCode);
 const WaspScriptResponse = ref<string | null>(null);
 const error = ref<string>();
 
+const editorHeight = ref('0px')
+
 // Calculate height based on line count
-const editorHeight = computed(() => {
-  const lineCount = props.challenge.startCode.split("\n").length;
-  const lineHeight = 19; // Monaco's default line height in px
-  const padding = 16; // a little breathing room
-  return `${lineCount * lineHeight + padding}px`;
-});
+// const editorHeight = computed(() => {
+//   const lineCount = props.challenge.startCode.split("\n").length;
+//   const lineHeight = 19; // Monaco's default line height in px
+//   const padding = 16; // a little breathing room
+//   return `${lineCount * lineHeight + padding}px`;
+// });
 
 const description = useMarkdown(props.challenge.description);
 
@@ -48,6 +50,19 @@ const submitAnswer = async () => {
     // error.value = err;
   }
 };
+
+const handleMount = (editor: any) => {
+  // set initial height
+  const updateHeight = () => {
+    const contentHeight = editor.getContentHeight()
+    editorHeight.value = `${contentHeight}px`
+  }
+
+  updateHeight()
+
+  // update height whenever content changes
+  editor.onDidContentSizeChange(updateHeight)
+}
 </script>
 
 <template>
@@ -88,31 +103,29 @@ const submitAnswer = async () => {
       />
     </div>
 
-    <div class="bg-card border border-border rounded-xl overflow-hidden">
-      <div
-        class="flex items-center justify-between px-4 py-2 border-b border-border"
-      >
-        <span class="text-xs text-muted-foreground font-mono">solution.js</span>
-        <span class="w-2 h-2 rounded-full bg-muted" />
-      </div>
-
-      <VueMonacoEditor
-        v-model:value="userCode"
-        language="javascript"
-        theme="hc-black"
-        :style="{ height: editorHeight, width: '100%' }"
-        :options="{
-          automaticLayout: true,
-          scrollBeyondLastLine: false,
-          fontSize: 14,
-          lineNumbers: 'on',
-          minimap: { enabled: false },
-          scrollbar: { vertical: 'hidden', horizontal: 'hidden' },
-        }"
-      />
+  <div class="bg-card border border-border rounded-xl flex flex-col">
+    <div class="flex items-center justify-between px-4 py-2 border-b border-border shrink-0">
+      <span class="text-xs text-muted-foreground font-mono">solution.js</span>
+      <span class="w-2 h-2 rounded-full bg-muted" />
     </div>
 
-    <!-- ! Submission Response -->
+    <VueMonacoEditor
+      v-model:value="userCode"
+      language="javascript"
+      theme="hc-black"
+      :style="{ height: editorHeight, width: '100%' }"
+      :options="{
+        automaticLayout: true,
+        scrollBeyondLastLine: false,
+        fontSize: 14,
+        lineNumbers: 'on',
+        minimap: { enabled: false },
+        scrollbar: { vertical: 'hidden', horizontal: 'hidden' },
+      }"
+      @mount="handleMount"
+    />
+  </div>
+
     <!-- ! Submission Response -->
     <Transition name="fade">
       <div
@@ -168,7 +181,9 @@ const submitAnswer = async () => {
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 .fade-enter-from,
 .fade-leave-to {
