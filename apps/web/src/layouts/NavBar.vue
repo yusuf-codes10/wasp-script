@@ -36,7 +36,7 @@ console.log(authStore.user);
       </span>
     </RouterLink>
 
-    <div class="flex items-center gap-0.5">
+    <div class="hidden md:flex items-center gap-0.5">
       <RouterLink
         v-for="link in links"
         :key="link.path"
