@@ -20,7 +20,9 @@ const difficultyClass: Record<string, string> = {
   legendary: "bg-[#1a0a2a] text-[#a855f7] border border-[#3a1a4a]",
 };
 
-const error = ref<string>();
+
+const userCode = ref<string>(props.challenge.startCode);
+const error = ref<string>()
 
 // Calculate height based on line count
 const editorHeight = computed(() => {
@@ -34,7 +36,7 @@ const description = useMarkdown(props.challenge.description);
 
 const submitAnswer = async () => {
   try {
-    await submitResponse();
+    await submitResponse({ code :});
   } catch (err) {
     console.log(err);
     // error.value = err;
@@ -89,7 +91,7 @@ const submitAnswer = async () => {
       </div>
 
       <VueMonacoEditor
-        v-model:value="props.challenge.startCode"
+        v-model:value="userCode"
         language="javascript"
         theme="hc-black"
         :style="{ height: editorHeight, width: '100%' }"
