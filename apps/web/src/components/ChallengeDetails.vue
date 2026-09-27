@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 import MainButton from "./MainButton.vue";
 import { VueMonacoEditor } from "@guolao/vue-monaco-editor";
 import { computed, ref } from "vue";
-import { submitResponse } from '@/services/submissions.ts';
+import { submitResponse } from "@/services/submissions.ts";
 
 const router = useRouter();
 
@@ -20,10 +20,9 @@ const difficultyClass: Record<string, string> = {
   legendary: "bg-[#1a0a2a] text-[#a855f7] border border-[#3a1a4a]",
 };
 
-
 const userCode = ref<string>(props.challenge.startCode);
 const WaspScriptResponse = ref<string | null>(null);
-const error = ref<string>()
+const error = ref<string>();
 
 // Calculate height based on line count
 const editorHeight = computed(() => {
@@ -37,7 +36,10 @@ const description = useMarkdown(props.challenge.description);
 
 const submitAnswer = async () => {
   try {
-    const data = await submitResponse({ code: userCode.value, challengeId: props.challenge.id});
+    const data = await submitResponse({
+      code: userCode.value,
+      challengeId: props.challenge.id,
+    });
     const { role, content, reasoning } = data;
     WaspScriptResponse.value = content;
     console.log(data);
@@ -45,7 +47,7 @@ const submitAnswer = async () => {
     console.log(err);
     // error.value = err;
   }
-}
+};
 </script>
 
 <template>
@@ -111,13 +113,49 @@ const submitAnswer = async () => {
     </div>
 
     <!-- ! Submission Response -->
-     <p class="text-2xl text-blue-500">
+    <!-- ! Submission Response -->
+    <Transition name="fade">
+      <div
+        v-if="WaspScriptResponse"
+        class="border rounded-xl px-6 py-5 font-mono text-sm"
+        :class="
+          WaspScriptResponse.startsWith('ACCEPTED')
+            ? 'bg-[#0f2a1a] border-[#1a4a2a]'
+            : 'bg-[#2a0f0f] border-[#4a1a1a]'
+        "
+      >
+        <!-- header -->
+        <div class="flex items-center gap-3 mb-3">
+          <span
+            class="text-xs font-semibold px-3 py-0.5 rounded-full"
+            :class="
+              WaspScriptResponse.startsWith('ACCEPTED')
+                ? 'bg-[#1a4a2a] text-[#4CAF72]'
+                : 'bg-[#4a1a1a] text-[#E05252]'
+            "
+          >
+            {{
+              WaspScriptResponse.startsWith("ACCEPTED")
+                ? "✓ ACCEPTED"
+                : "✗ REJECTED"
+            }}
+          </span>
+          <span class="text-muted-foreground text-xs">WaspScript AI</span>
+        </div>
 
-        {{ WaspScriptResponse }}
-     </p>
-    <div>
-
-    </div>
+        <!-- message -->
+        <p
+          class="leading-relaxed"
+          :class="
+            WaspScriptResponse.startsWith('ACCEPTED')
+              ? 'text-[#4CAF72]'
+              : 'text-[#E05252]'
+          "
+        >
+          {{ WaspScriptResponse.split(" - ")[1] ?? WaspScriptResponse }}
+        </p>
+      </div>
+    </Transition>
 
     <div class="flex justify-end" @click="submitAnswer">
       <MainButton title="Submit solution">
@@ -126,3 +164,15 @@ const submitAnswer = async () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+</style>
