@@ -122,7 +122,7 @@ const register = async () => {
 
         <!-- login -->
         <Transition name="slide">
-          <div v-if="tab === 'login'" key="login">
+          <form @submit.prevent="login" v-if="tab === 'login'" key="login">
             <h2 class="text-lg font-bold text-foreground mb-1">welcome back</h2>
             <p class="text-xs text-muted-foreground mb-6 font-mono">
               // pick up where you left off
@@ -143,6 +143,7 @@ const register = async () => {
                     placeholder="johnmarston"
                     v-model="username"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-3 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
+                    autocomplete="username"
                   />
                 </div>
               </div>
@@ -161,6 +162,7 @@ const register = async () => {
                     placeholder="••••••••"
                     v-model="password"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-9 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
+                    autocomplete="current-password"
                   />
                   <button
                     @click="showLoginPass = !showLoginPass"
@@ -191,7 +193,7 @@ const register = async () => {
               sign_in()
             </button> -->
             <MainButton
-              @click="login"
+              type="submit"
               :loading="loading"
               title="sign_in()"
               class="w-full bg-primary text-primary-foreground font-bold text-[13px] py-2.5 rounded-md mt-6 hover:opacity-90 transition-opacity font-mono"
@@ -207,12 +209,14 @@ const register = async () => {
                 register →
               </button>
             </p>
-          </div>
+          </form>
         </Transition>
 
         <!-- register -->
         <Transition name="slide">
-          <div v-if="tab === 'register'" key="register">
+          <form
+          @submit.prevent="register"
+          v-if="tab === 'register'" key="register">
             <h2 class="text-lg font-bold text-foreground mb-1">
               create account
             </h2>
@@ -235,6 +239,7 @@ const register = async () => {
                     type="email"
                     placeholder="john@example.com"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-3 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
+                    autocomplete="email"
                   />
                 </div>
               </div>
@@ -253,6 +258,7 @@ const register = async () => {
                     type="text"
                     placeholder="johnmarston"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-3 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
+                    autocomplete="username"
                   />
                 </div>
               </div>
@@ -271,6 +277,7 @@ const register = async () => {
                     type="text"
                     placeholder="John Marston"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-3 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
+                    autocomplete="name"
                   />
                 </div>
               </div>
@@ -289,6 +296,7 @@ const register = async () => {
                     v-model="password"
                     placeholder="••••••••"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-9 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
+                    autocomplete="new-password"
                   />
                   <button
                     @click="showRegPass = !showRegPass"
@@ -328,6 +336,7 @@ const register = async () => {
                     v-model="confirmPassword"
                     placeholder="••••••••"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-9 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
+                    autocomplete="new-password"
                   />
                   <button
                     @click="showConfirmPass = !showConfirmPass"
@@ -365,7 +374,7 @@ const register = async () => {
             </div>
 
             <MainButton
-              @click="register"
+              type="submit"
               title="register()"
               :loading="loading"
               class="w-full bg-primary text-primary-foreground font-bold text-[13px] py-2.5 rounded-md mt-6 hover:opacity-90 transition-opacity font-mono"
@@ -381,7 +390,7 @@ const register = async () => {
                 sign in →
               </button>
             </p>
-          </div>
+          </form>
         </Transition>
       </div>
     </div>
