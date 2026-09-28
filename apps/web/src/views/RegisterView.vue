@@ -68,13 +68,23 @@ const login = async (): Promise<void> => {
 };
 
 const register = async () => {
+  loading.value = true;
+  error.value = "";
   try {
-    await authStore.register();
+    await authStore.register({
+      username: username.value,
+      password: password.value,
+      email: email.value,
+      fullName: fullName.value,
+    });
+    router.push({ name: "Challenges" });
   } catch (err) {
     console.log(err);
     if (axios.isAxiosError(err)) {
       error.value = err.response?.data.msg;
     }
+  } finally {
+    loading.value = false;
   }
 };
 </script>
@@ -348,11 +358,17 @@ const register = async () => {
               </div>
             </div>
 
-            <button
+            <!-- <button
               class="w-full bg-primary text-primary-foreground font-bold text-[13px] py-2.5 rounded-md mt-6 hover:opacity-90 transition-opacity font-mono"
             >
               register()
-            </button>
+            </button> -->
+            <MainButton
+              @click="register"
+              title="register()"
+              :loading="loading"
+              class="w-full bg-primary text-primary-foreground font-bold text-[13px] py-2.5 rounded-md mt-6 hover:opacity-90 transition-opacity font-mono"
+            />
             <p
               class="text-center text-[11px] text-muted-foreground mt-4 font-mono"
             >
