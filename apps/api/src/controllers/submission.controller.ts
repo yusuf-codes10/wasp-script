@@ -3,7 +3,7 @@ import Groq from "groq-sdk";
 import { zValidator } from "@hono/zod-validator";
 import { db } from "@db/index";
 import { challenges } from "@db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { promptSchema } from "@shared/validation/submission";
 import { HTTPException } from "hono/http-exception";
 import type { AIAnswer } from "@shared/types/submission";
@@ -76,11 +76,21 @@ export const getChallengeResult = factroy.createHandlers(
 
       // ! if the answer is correct count it as completed and push a userProgress column
       if (answer.content?.startsWith("ACCEPTED")) {
-        await db.insert(userProgress)
-        .values({
-          challengeId: foundChallenge.id,
-          userId: payload.id
-        }).returning();
+        // first check if the challenge is already complected
+        const [isComplected] = await db.select()
+        .from(userProgress)
+        .where(and(
+          eq(userProgress.userId, payload.id),
+          eq(userProgress.challengeId, foundChallenge.id)
+        ));
+
+        if (!isComplected) {
+          await db.insert(userProgress)
+          .values({
+            challengeId: foundChallenge.id,
+            userId: payload.id
+          }).returning();
+        }
       }
 
       return c.json(answer);
