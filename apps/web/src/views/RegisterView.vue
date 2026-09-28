@@ -60,7 +60,7 @@ const login = async (): Promise<void> => {
       error.value = err.response?.data.msg;
     }
   } finally {
-    loading.value = true;
+    loading.value = false;
   }
 };
 </script>
