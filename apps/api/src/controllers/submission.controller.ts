@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import { promptSchema } from "@shared/validation/submission";
 import { HTTPException } from "hono/http-exception";
 import type { AIAnswer } from "@shared/types/submission";
+import { userProgress } from '@db/schema';
 
 const factroy = createFactory<{}>();
 
@@ -69,6 +70,8 @@ export const getChallengeResult = factroy.createHandlers(
         content: message.content,
         reasoning: message.reasoning,
       };
+
+      // ! if the answer is correct count it as completed and push a userProgress column
 
       return c.json(answer);
     } catch (error) {
