@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
+import WaspLogo from "@/components/WaspLogo.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -16,8 +17,8 @@ const links = [
 
 const logout = async (): Promise<void> => {
   await authStore.logout();
-  router.push({name: 'Home'});
-}
+  router.push({ name: "Home" });
+};
 console.log(authStore.user);
 </script>
 
@@ -26,11 +27,7 @@ console.log(authStore.user);
     class="bg-card border-b border-border px-6 h-14 flex items-center justify-between"
   >
     <RouterLink to="/" class="flex items-center gap-2 no-underline">
-      <div
-        class="w-7 h-7 bg-primary rounded-md flex items-center justify-center"
-      >
-        <i class="fa-solid fa-bolt text-primary-foreground text-xs" />
-      </div>
+      <WaspLogo :size="28"/>
       <span class="text-[15px] font-semibold text-foreground tracking-tight">
         wasp<span class="text-primary">script</span>
       </span>
