@@ -15,14 +15,14 @@ const props = withDefaults(
 
 <template>
   <button
-    class="inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold text-[13px] px-6 py-3 rounded-lg font-mono hover:opacity-90 transition-opacity duration-150 cursor-pointer"
+    :disabled="props.loading"
+    :class="[
+      'inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold text-[13px] px-6 py-3 rounded-lg font-mono transition-opacity duration-150 cursor-pointer',
+      props.loading ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
+    ]"
   >
-    {{ props.title }}
+    <span v-if="props.loading" class="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+    <span v-else>{{ props.title }}</span>
     <slot />
   </button>
-  <!-- <button
-    class="flex items-center gap-2 bg-primary text-primary-foreground font-medium text-sm px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-150"
-  >
-    {{ props.title }}
-  </button> -->
 </template>
