@@ -1,0 +1,1 @@
+ALTER TABLE "userProgress" ADD CONSTRAINT "userProgress_userId_challengeId_pk" PRIMARY KEY("userId","challengeId");

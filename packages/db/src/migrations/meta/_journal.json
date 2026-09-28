@@ -43,6 +43,13 @@
       "when": 1790437092036,
       "tag": "0005_magical_polaris",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790616189428,
+      "tag": "0006_massive_chamber",
+      "breakpoints": true
     }
   ]
 }

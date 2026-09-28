@@ -6,6 +6,7 @@ import {
   timestamp,
   jsonb,
   pgEnum,
+  primaryKey
 } from "drizzle-orm/pg-core";
 
 const categoryEnum = pgEnum("category", [
@@ -60,4 +61,10 @@ export const userProgress = pgTable("userProgress", {
     .notNull()
     .references(() => challenges.id),
   completedAt: timestamp("completedAt").defaultNow(),
-});
+},
+(table) => [
+      primaryKey({
+      columns: [table.userId, table.challengeId],
+    }),
+]
+);
