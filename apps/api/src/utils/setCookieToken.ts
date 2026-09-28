@@ -4,7 +4,7 @@ import { setCookie } from "hono/cookie";
 export const setCookieToken = (c: Context, token: string): void => {
   setCookie(c, "auth", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: true,
     sameSite: process.env.NODE_ENV === "production" ? "Strict" : "Lax",
     maxAge: 60 * 60 * 24 * 7,
   });
