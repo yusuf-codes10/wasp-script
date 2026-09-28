@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import { promptSchema } from "@shared/validation/submission";
 import { HTTPException } from "hono/http-exception";
 import type { AIAnswer } from "@shared/types/submission";
+import type { jwtPayload } from "@shared/types/user";
 import { userProgress } from '@db/schema';
 
 const factroy = createFactory<{}>();
@@ -15,6 +16,8 @@ export const getChallengeResult = factroy.createHandlers(
   zValidator("json", promptSchema),
   async (c) => {
     const client = new Groq(); // picks up GROQ_API_KEY from env automatically
+
+    const payload = c.get('jwtPayload') as jwtPayload;
 
     const body = c.req.valid("json");
     const { code, challengeId } = body;
@@ -72,6 +75,13 @@ export const getChallengeResult = factroy.createHandlers(
       };
 
       // ! if the answer is correct count it as completed and push a userProgress column
+      if (answer.content?.startsWith("ACCEPTED")) {
+        await db.insert(userProgress)
+        .values({
+          challengeId: foundChallenge.id,
+          userId: payload.id
+        }).returning();
+      }
 
       return c.json(answer);
     } catch (error) {
