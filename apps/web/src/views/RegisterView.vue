@@ -16,6 +16,9 @@ const showConfirmPass = ref(false);
 const password = ref("");
 const confirmPassword = ref("");
 
+const email = ref<string>("");
+const fullName = ref<string>("");
+
 const username = ref<string>("");
 const error = ref<string>("");
 const loading = ref<boolean>(false);
@@ -61,6 +64,17 @@ const login = async (): Promise<void> => {
     }
   } finally {
     loading.value = false;
+  }
+};
+
+const register = async () => {
+  try {
+    await authStore.register();
+  } catch (err) {
+    console.log(err);
+    if (axios.isAxiosError(err)) {
+      error.value = err.response?.data.msg;
+    }
   }
 };
 </script>
@@ -207,6 +221,7 @@ const login = async (): Promise<void> => {
                     class="fa-solid fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-[#444] text-xs"
                   />
                   <input
+                    v-model="email"
                     type="email"
                     placeholder="john@example.com"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-3 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
@@ -224,6 +239,7 @@ const login = async (): Promise<void> => {
                     class="fa-solid fa-user absolute left-3 top-1/2 -translate-y-1/2 text-[#444] text-xs"
                   />
                   <input
+                    v-model="username"
                     type="text"
                     placeholder="johnmarston"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-3 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
@@ -241,6 +257,7 @@ const login = async (): Promise<void> => {
                     class="fa-solid fa-id-badge absolute left-3 top-1/2 -translate-y-1/2 text-[#444] text-xs"
                   />
                   <input
+                    v-model="fullName"
                     type="text"
                     placeholder="John Marston"
                     class="w-full bg-background border border-border rounded-md pl-9 pr-3 py-2.5 text-[13px] text-foreground font-mono outline-none focus:border-primary transition-colors"
