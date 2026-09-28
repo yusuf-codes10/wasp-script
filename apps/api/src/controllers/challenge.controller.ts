@@ -1,14 +1,16 @@
 import { createFactory } from 'hono/factory';
 import { db } from '@db/index';
 import { eq } from 'drizzle-orm';
-import type { Challenge } from '@shared/types/challenge';
-import { selectChallengeSchema } from '@shared/validation/challenge';
 import { challenges } from '@db/schema';
 import { HTTPException } from 'hono/http-exception';
+import { userProgress } from '@db/schema';
+import type { jwtPayload } from '@shared/types/user';
 
 const factory = createFactory();
 
 export const getAllChallenges = factory.createHandlers(async (c) => {
+
+    const payload = c.get('jwtPayload') as jwtPayload;
 
     const pageQuery = c.req.query('page');
     const limitQuery = c.req.query('limit');
@@ -19,6 +21,7 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
     try {
         const challs = await db.select()
         .from(challenges)
+        .leftJoin(userProgress, eq(userProgress.userId, payload.id))
         .groupBy(challenges.id)
         .limit(limit)
         .offset(skip)
