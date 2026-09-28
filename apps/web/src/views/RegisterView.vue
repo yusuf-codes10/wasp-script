@@ -358,11 +358,12 @@ const register = async () => {
               </div>
             </div>
 
-            <!-- <button
-              class="w-full bg-primary text-primary-foreground font-bold text-[13px] py-2.5 rounded-md mt-6 hover:opacity-90 transition-opacity font-mono"
-            >
-              register()
-            </button> -->
+            <div>
+              <p class="text-red-500 text-3xl">
+                {{ error }}
+              </p>
+            </div>
+
             <MainButton
               @click="register"
               title="register()"
