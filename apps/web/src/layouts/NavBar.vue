@@ -11,8 +11,8 @@ const authStore = useAuthStore();
 const links = [
   { name: "home", path: "/" },
   { name: "challenges", path: "/challenges" },
-  { name: "leaderboard", path: "/leaderboard" },
-  { name: "dashboard", path: "/dashboard" },
+  { name: "leaderboard", path: "#" },
+  { name: "dashboard", path: "#" },
 ];
 
 const logout = async (): Promise<void> => {
