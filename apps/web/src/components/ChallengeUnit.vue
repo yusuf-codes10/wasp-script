@@ -7,7 +7,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const props = defineProps<{
-  challenge: Challenge;
+  challenge: Challenge & {completed?: boolean};
 }>();
 
 const difficultyClass: Record<string, string> = {
@@ -75,7 +75,7 @@ const gotToDetails = (id: string) => {
       <div class="flex items-center gap-2 text-xs text-[#555]">
         <span
           class="w-1.5 h-1.5 rounded-full"
-          :class="props.challenge ? 'bg-[#4CAF72]' : 'bg-[#333]'"
+          :class="props.challenge.completed ? 'bg-[#4CAF72]' : 'bg-[#333]'"
         />
         {{ props.challenge ? "completed" : "not started" }}
       </div>

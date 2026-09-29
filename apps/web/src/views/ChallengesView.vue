@@ -9,7 +9,7 @@ const challngs = ref<Challenge[]>([]);
 const loadChallenges = async () => {
   const data = await getAllChallenges();
   challngs.value = data;
-  console.log(data);
+  console.log('Challenges: ', data);
 };
 
 onMounted(async () => {
