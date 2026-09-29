@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Challenge } from "@shared/types/challenge";
+import type { Challenge, toDisplayChallenge } from "@shared/types/challenge";
 import { useMarkdown } from "@/composables/useMarkdown";
 import { splitText } from "@/utils/splitText";
 import { useRouter } from "vue-router";
@@ -7,7 +7,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const props = defineProps<{
-  challenge: Challenge & {completed?: boolean};
+  challenge: toDisplayChallenge;
 }>();
 
 const difficultyClass: Record<string, string> = {

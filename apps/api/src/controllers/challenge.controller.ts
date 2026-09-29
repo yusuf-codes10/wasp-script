@@ -5,7 +5,7 @@ import { challenges } from "@db/schema";
 import { HTTPException } from "hono/http-exception";
 import { userProgress } from "@db/schema";
 import type { jwtPayload } from "@shared/types/user";
-import type { Challenge } from "@shared/types/challenge";
+import type { Challenge, toDisplayChallenge } from "@shared/types/challenge";
 
 const factory = createFactory();
 
@@ -36,7 +36,7 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
 
     // }
 
-    const response = challs.map(({ challenges, userProgress }) => ({
+    const response: toDisplayChallenge[] = challs.map(({ challenges, userProgress }) => ({
       ...challenges,
       completed: userProgress !== null,
     }));

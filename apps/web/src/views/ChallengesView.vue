@@ -2,9 +2,9 @@
 import ChallengeUnit from "@/components/ChallengeUnit.vue";
 import { getAllChallenges } from "@/services/challenges";
 import { onMounted, ref } from "vue";
-import type { Challenge } from "@shared/types/challenge";
+import type { Challenge, toDisplayChallenge } from "@shared/types/challenge";
 
-const challngs = ref<Challenge[]>([]);
+const challngs = ref<toDisplayChallenge[]>([]);
 
 const loadChallenges = async () => {
   const data = await getAllChallenges();

@@ -1,7 +1,7 @@
 import api from '@/services/api';
-import type { Challenge } from '@shared/types/challenge';
+import type { Challenge, toDisplayChallenge } from '@shared/types/challenge';
 
-export const getAllChallenges = async (): Promise<Challenge[]> => {
+export const getAllChallenges = async (): Promise<toDisplayChallenge[]> => {
     const {data} = await api.get('/challenges');
     return data;
 }
