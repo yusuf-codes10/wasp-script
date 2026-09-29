@@ -1,6 +1,6 @@
 import { createFactory } from "hono/factory";
 import { db } from "@db/index";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { challenges } from "@db/schema";
 import { HTTPException } from "hono/http-exception";
 import { userProgress } from "@db/schema";
@@ -25,7 +25,8 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
     const challs = await db
       .select()
       .from(challenges)
-      .leftJoin(userProgress, eq(userProgress.userId, payload.id))
+      .leftJoin(userProgress,
+        and(eq(userProgress.userId, payload.id), eq(userProgress.challengeId, challenges.id)))
       // .groupBy(challenges.id)
       .limit(limit)
       .offset(skip)
