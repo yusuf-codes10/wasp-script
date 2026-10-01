@@ -27,7 +27,7 @@ console.log(authStore.user);
     class="bg-card border-b border-border px-6 h-14 flex items-center justify-between"
   >
     <RouterLink to="/" class="flex items-center gap-2 no-underline">
-      <WaspLogo :size="28"/>
+      <WaspLogo :size="28" />
       <span class="text-[15px] font-semibold text-foreground tracking-tight">
         wasp<span class="text-primary">script</span>
       </span>
@@ -48,15 +48,17 @@ console.log(authStore.user);
     <div></div>
 
     <div class="flex items-center gap-2.5">
-      <button
-        @click="logout"
-        class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-150 w-fit text-sm"
-      >
-        <span>logout</span>
-      </button>
-      <span v-if="authStore.user">
-        {{ authStore.user.username }}
-      </span>
+      <div class="flex items-center gap-2" v-if="authStore.user">
+        <button
+          @click="logout"
+          class="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-150 w-fit text-sm"
+        >
+          <span>logout</span>
+        </button>
+        <span>
+          {{ authStore.user.username }}
+        </span>
+      </div>
       <button
         v-else
         @click="router.push('/register')"
@@ -64,11 +66,11 @@ console.log(authStore.user);
       >
         sign in
       </button>
-      <div
+      <!-- <div
         class="w h rounded-full bg-secondary border border-border flex items-center justify-center text-[11px] text-primary font-semibold cursor-pointer"
       >
         YK
-      </div>
+      </div> -->
     </div>
   </nav>
 </template>
