@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
-const props = withDefaults(defineProps<{
+const props = withDefaults(
+  defineProps<{
     limit?: number;
     page?: number;
     length: number;
-}>(), {
+  }>(),
+  {
     limit: 5,
     page: 1,
-});
+  },
+);
 
 const emit = defineEmits<{
-    (e: 'changePage', page: number): void;
+  (e: "changePage", page: number): void;
 }>();
 
 const totalPages = computed(() => Math.ceil(props.length / props.limit));
@@ -24,9 +27,11 @@ const totalPages = computed(() => Math.ceil(props.length / props.limit));
       :key="p"
       @click="emit('changePage', p)"
       class="w-8 h-8 rounded-md text-[13px] transition-all duration-150 border"
-      :class="p === props.page
-        ? 'bg-primary text-primary-foreground border-primary font-bold'
-        : 'bg-[#111111] text-[#555] border-[#2a2a2a] hover:border-primary hover:text-primary'"
+      :class="
+        p === props.page
+          ? 'bg-primary text-primary-foreground border-primary font-bold'
+          : 'bg-card text-muted-foreground border-border hover:border-primary hover:text-primary'
+      "
     >
       {{ p }}
     </button>
