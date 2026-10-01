@@ -4,6 +4,10 @@ import { ref, computed} from 'vue';
 const emit = defineEmits<{
     (e: 'filter', value: string): void
 }>();
+
+const chooseFilter = (filter: string) => {
+    emit('filter', filter);
+}
 </script>
 
 <template>
@@ -27,6 +31,7 @@ const emit = defineEmits<{
       <button
         v-for="d in ['all', 'easy', 'medium', 'hard', 'legendary']"
         :key="d"
+        @click="chooseFilter(d)"
         class="text-[11px] px-3 py-1 rounded-full border transition-all duration-150"
         :class="{
           'bg-primary text-primary-foreground border-primary font-bold': d === 'all',
