@@ -12,8 +12,8 @@ const currentPage = ref<number>(1);
 const totalCount = ref<number>(50);
 const limit = ref<number>(5);
 
-const loadChallenges = async () => {
-  const data = await getAllChallenges(currentPage.value ?? 1, limit.value);
+const loadChallenges = async (filter: string = '') => {
+  const data = await getAllChallenges(currentPage.value ?? 1, limit.value, filter);
   challngs.value = data;
   console.log("Challenges: ", data);
 };
@@ -25,7 +25,7 @@ onMounted(async () => {
 
 <template>
   <div>
-    <FilterBar @filter="loadChallenges" />
+    <FilterBar @filter="loadChallenges($event)" />
     <ChallengeUnit v-for="ch in challngs" :key="ch.id" :challenge="ch" />
     <PaginationBar
       :length="totalCount"
