@@ -4,10 +4,12 @@ import { verifyToken } from '@/middlewares/verifyToken';
 
 const router = new Hono();
 
+router.use(verifyToken);
+
 // get all challenges
-router.get('/', verifyToken,  ...getAllChallenges);
+router.get('/',  ...getAllChallenges);
 
 // get challenge by id
-router.get('/:id', verifyToken, ...getChallengeById);
+router.get('/:id', ...getChallengeById);
 
 export default router;
