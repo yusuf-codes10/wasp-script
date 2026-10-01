@@ -206,8 +206,10 @@
   }
 
   .dark .prose-waspscript code:not(pre code) {
-    background: #1e1a00;
-    border: 0.5px solid #3a3000;
+    background: oklch(0.8480 0.1563 82.4419);
+    /* slightly lighter so it pops */
+    border: 0.5px solid #5a4800;
+    /* more visible border */
     color: #F5C400;
   }
 
