@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { ref, computed} from 'vue';
 
+const emit = defineEmits<{
+    (e: 'filter', value: string): void
+}>();
 </script>
 
 <template>
   <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-4 my-4 font-mono">
-    
+
     <!-- search -->
     <div class="relative w-full sm:w-64">
       <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs" />
