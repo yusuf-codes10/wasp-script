@@ -7,7 +7,7 @@ export const getAllChallenges = async (
   query: string = "",
 ): Promise<toDisplayChallenge[]> => {
   const { data } = await api.get(`/challenges`, {
-    params: { page, limit, query: query || undefined },
+    params: { page, limit, difficulty: query || undefined },
   });
   return data;
 };
