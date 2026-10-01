@@ -77,7 +77,7 @@ const handleMount = (editor: any) => {
             {{ props.challenge.difficulty }}
           </span>
           <span
-            class="text-[11px] font-medium px-3 py-0.5 rounded-full bg-secondary text-primary border border-border"
+            class="text-[11px] font-medium px-3 py-0.5 rounded-full bg-primary/15 text-foreground border border-primary/40"
           >
             {{ props.challenge.category }}
           </span>
@@ -90,7 +90,7 @@ const handleMount = (editor: any) => {
         {{ props.challenge.title }}
       </h1>
       <div
-        class="prose prose-invert prose-waspscript max-w-none text-sm"
+        class="prose prose-waspscript max-w-none text-sm"
         v-html="description"
       />
     </div>
