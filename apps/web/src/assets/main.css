@@ -144,6 +144,53 @@
 
 @layer base {
   .prose-waspscript {
+    --tw-prose-body: #333333;
+    --tw-prose-headings: #0a0a0a;
+    --tw-prose-bold: #b08a00;
+    --tw-prose-code: #b08a00;
+    --tw-prose-pre-bg: #f5f5f5;
+    --tw-prose-pre-code: #333333;
+    --tw-prose-bullets: #888;
+    --tw-prose-counters: #888;
+    --tw-prose-links: #b08a00;
+    --tw-prose-hr: #d5d5d5;
+    --tw-prose-quotes: #666;
+    --tw-prose-quote-borders: #b08a00;
+  }
+
+  .prose-waspscript code:not(pre code) {
+    background: #fdf3cc;
+    border: 0.5px solid #e6c800;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.85em;
+    color: #8a6800;
+    font-weight: 400;
+  }
+
+  .prose-waspscript pre {
+    background: #f5f5f5 !important;
+    border: 0.5px solid #d5d5d5;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+  }
+
+  .prose-waspscript pre code {
+    color: #333333;
+    font-size: 0.875em;
+  }
+
+  .prose-waspscript strong {
+    color: #b08a00;
+    font-weight: 500;
+  }
+
+  .prose-waspscript ul li::marker {
+    color: #b08a00;
+  }
+
+  /* dark overrides */
+  .dark .prose-waspscript {
     --tw-prose-body: #d4d4d4;
     --tw-prose-headings: #F0F0F0;
     --tw-prose-bold: #F5C400;
@@ -158,38 +205,26 @@
     --tw-prose-quote-borders: #F5C400;
   }
 
-  /* inline code pill */
-  .prose-waspscript code:not(pre code) {
+  .dark .prose-waspscript code:not(pre code) {
     background: #1e1a00;
     border: 0.5px solid #3a3000;
-    border-radius: 4px;
-    padding: 1px 6px;
-    font-size: 0.85em;
     color: #F5C400;
-    font-weight: 400;
   }
 
-  /* code block */
-  .prose-waspscript pre {
+  .dark .prose-waspscript pre {
     background: #0d0d0d !important;
     border: 0.5px solid #2a2a2a;
-    border-radius: 8px;
-    padding: 1rem 1.25rem;
   }
 
-  .prose-waspscript pre code {
+  .dark .prose-waspscript pre code {
     color: #d4d4d4;
-    font-size: 0.875em;
   }
 
-  /* bold gets yellow */
-  .prose-waspscript strong {
+  .dark .prose-waspscript strong {
     color: #F5C400;
-    font-weight: 500;
   }
 
-  /* list items */
-  .prose-waspscript ul li::marker {
+  .dark .prose-waspscript ul li::marker {
     color: #F5C400;
   }
 }

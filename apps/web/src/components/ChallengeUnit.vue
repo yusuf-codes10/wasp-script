@@ -21,7 +21,7 @@ const description = useMarkdown(splitText(props.challenge.description));
 
 const gotToDetails = (id: string) => {
   router.push(`/challenges/${id}`);
-}
+};
 </script>
 
 <template>
@@ -59,15 +59,10 @@ const gotToDetails = (id: string) => {
     </h3>
 
     <!-- description -->
-    <div
-      class="prose prose-invert prose-waspscript max-w-none"
-      v-html="description"
-    />
+    <div class="prose prose-waspscript max-w-none" v-html="description" />
 
     <!-- footer -->
-    <div
-      class="flex items-center justify-between border-t border-border pt-3"
-    >
+    <div class="flex items-center justify-between border-t border-border pt-3">
       <div class="flex items-center gap-2 text-xs text-muted-foreground">
         <span
           class="w-1.5 h-1.5 rounded-full"
@@ -75,7 +70,10 @@ const gotToDetails = (id: string) => {
         />
         {{ props.challenge.completed ? "completed" : "not started" }}
       </div>
-      <i @click="gotToDetails(props.challenge.id)" class="fa-solid fa-arrow-right-long text-muted-foreground text-lg group-hover:text-primary group-hover:translate-x-1 transition-all duration-150"></i>
+      <i
+        @click="gotToDetails(props.challenge.id)"
+        class="fa-solid fa-arrow-right-long text-muted-foreground text-lg group-hover:text-primary group-hover:translate-x-1 transition-all duration-150"
+      ></i>
     </div>
   </div>
 </template>
