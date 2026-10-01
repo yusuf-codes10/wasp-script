@@ -2,11 +2,13 @@
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
 import WaspLogo from "@/components/WaspLogo.vue";
+import { useThemeStore } from "@/stores/themeStore";
 
 const route = useRoute();
 const router = useRouter();
 
 const authStore = useAuthStore();
+const themeStore = useThemeStore();
 
 const links = [
   { name: "home", path: "/" },
@@ -48,6 +50,11 @@ console.log(authStore.user);
     <div></div>
 
     <div class="flex items-center gap-2.5">
+      <div>
+        <button @click="themeStore.toggleTheme" class="cursor-pointer">
+          <i :class="themeStore.dark ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"></i>
+        </button>
+      </div>
       <div class="flex items-center gap-2" v-if="authStore.user">
         <button
           @click="logout"
