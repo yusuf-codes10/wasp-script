@@ -1,76 +1,159 @@
-@import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
-@custom-variant dark (&:is(.dark *));
+@import "tailwindcss";
 
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
+/* ------------------------------------------------------------------ */
+/*  LIGHT                                                              */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #F0F0F0;
+  --background: #f0f0f0;
   --foreground: #0a0a0a;
   --card: #ffffff;
   --card-foreground: #0a0a0a;
   --popover: #ffffff;
   --popover-foreground: #0a0a0a;
-  --primary: oklch(0.8480 0.1563 82.4419);
+
+  /* wasp yellow */
+  --primary: oklch(0.848 0.1563 82.4419);
   --primary-foreground: #000000;
+
   --secondary: #e5e5e5;
   --secondary-foreground: #0a0a0a;
   --muted: #e1e1e1;
-  --muted-foreground: #aaaaaa;
+  --muted-foreground: #5c5c5c; /* was #aaa (~2:1) -> ~6:1 on bg, ~5:1 on muted */
   --accent: #e5e5e5;
   --accent-foreground: #0a0a0a;
+
   --destructive: oklch(0.5379 0.2186 25.9751);
-  --destructive-foreground: #F0F0F0;
+  --destructive-foreground: #f0f0f0;
+
   --border: #d5d5d5;
   --input: #d5d5d5;
-  --ring: oklch(0.8480 0.1563 82.4419);
+  --ring: oklch(0.848 0.1563 82.4419);
+
+  --chart-1: oklch(0.848 0.1563 82.4419);
+  --chart-2: #8a6800;
+  --chart-3: #0a0a0a;
+  --chart-4: #5c5c5c;
+  --chart-5: #c9a200;
+
   --sidebar: #f2f2f2;
   --sidebar-foreground: #0a0a0a;
-  --sidebar-primary: oklch(0.8480 0.1563 82.4419);
+  --sidebar-primary: oklch(0.848 0.1563 82.4419);
   --sidebar-primary-foreground: #000000;
   --sidebar-accent: #e5e5e5;
   --sidebar-accent-foreground: #0a0a0a;
   --sidebar-border: #e1e1e1;
-  --sidebar-ring: oklch(0.8480 0.1563 82.4419);
+  --sidebar-ring: oklch(0.848 0.1563 82.4419);
+
   --font-sans: 'JetBrains Mono', ui-monospace, monospace;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --font-serif: 'JetBrains Mono', ui-monospace, monospace;
+
+  --radius: 0.5rem;
+  --tracking-normal: 0em;
+
+  --shadow-2xs: 0 1px 0 0 rgb(0 0 0 / 0.04);
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.06);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* wasp prose tokens (light) */
+  --wasp-body: #2b2b2b;
+  --wasp-heading: #0a0a0a;
+  --wasp-accent: #8a6800;          /* ~5.3:1 on white, readable amber */
+  --wasp-accent-strong: #6b5000;
+  --wasp-code-bg: #fdf3cc;
+  --wasp-code-border: #e6c800;
+  --wasp-code-text: #6b5000;
+  --wasp-pre-bg: #f5f5f5;
+  --wasp-pre-text: #2b2b2b;
+  --wasp-pre-border: #d5d5d5;
+  --wasp-muted: #5c5c5c;
+  --wasp-rule: #d5d5d5;
+  --wasp-quote-border: #c9a200;
+  --wasp-th-bg: #fdf3cc;
 }
 
+/* ------------------------------------------------------------------ */
+/*  DARK                                                               */
+/* ------------------------------------------------------------------ */
 .dark {
   --background: #0a0a0a;
-  --foreground: #F0F0F0;
+  --foreground: #f0f0f0;
   --card: #111111;
-  --card-foreground: #F0F0F0;
+  --card-foreground: #f0f0f0;
   --popover: #111111;
-  --popover-foreground: #F0F0F0;
-  --primary: oklch(0.8480 0.1563 82.4419);
+  --popover-foreground: #f0f0f0;
+
+  --primary: oklch(0.848 0.1563 82.4419);
   --primary-foreground: #000000;
+
   --secondary: #1a1a1a;
-  --secondary-foreground: #F0F0F0;
+  --secondary-foreground: #f0f0f0;
   --muted: #1e1e1e;
-  --muted-foreground: #555555;
+  --muted-foreground: #9a9a9a; /* was #555 (~2.6:1) -> ~7:1 on bg, ~6:1 on muted */
   --accent: #1a1a1a;
-  --accent-foreground: #F0F0F0;
+  --accent-foreground: #f0f0f0;
+
   --destructive: oklch(0.7036 0.1881 22.1462);
-  --destructive-foreground: #F0F0F0;
+  --destructive-foreground: #f0f0f0;
+
   --border: #2a2a2a;
   --input: #2a2a2a;
-  --ring: oklch(0.8480 0.1563 82.4419);
+  --ring: oklch(0.848 0.1563 82.4419);
+
+  --chart-1: #f5c400;
+  --chart-2: #ffe066;
+  --chart-3: #f0f0f0;
+  --chart-4: #9a9a9a;
+  --chart-5: #b08a00;
+
   --sidebar: #0d0d0d;
-  --sidebar-foreground: #F0F0F0;
-  --sidebar-primary: oklch(0.8480 0.1563 82.4419);
+  --sidebar-foreground: #f0f0f0;
+  --sidebar-primary: oklch(0.848 0.1563 82.4419);
   --sidebar-primary-foreground: #000000;
   --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #F0F0F0;
+  --sidebar-accent-foreground: #f0f0f0;
   --sidebar-border: #1e1e1e;
-  --sidebar-ring: oklch(0.8480 0.1563 82.4419);
+  --sidebar-ring: oklch(0.848 0.1563 82.4419);
+
+  --shadow-2xs: 0 1px 0 0 rgb(0 0 0 / 0.4);
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.55), 0 1px 2px -1px rgb(0 0 0 / 0.55);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.6), 0 1px 2px -1px rgb(0 0 0 / 0.6);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.6), 0 2px 4px -2px rgb(0 0 0 / 0.6);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.65), 0 4px 6px -4px rgb(0 0 0 / 0.65);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.7), 0 8px 10px -6px rgb(0 0 0 / 0.7);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.8);
+
+  /* wasp prose tokens (dark) */
+  --wasp-body: #d4d4d4;
+  --wasp-heading: #f0f0f0;
+  --wasp-accent: #f5c400;
+  --wasp-accent-strong: #ffe066;
+  --wasp-code-bg: #2a2200;
+  --wasp-code-border: #5a4800;
+  --wasp-code-text: #f5c400;
+  --wasp-pre-bg: #0d0d0d;
+  --wasp-pre-text: #d4d4d4;
+  --wasp-pre-border: #2a2a2a;
+  --wasp-muted: #9a9a9a;
+  --wasp-rule: #2a2a2a;
+  --wasp-quote-border: #f5c400;
+  --wasp-th-bg: #1e1a00;
 }
 
+/* ------------------------------------------------------------------ */
+/*  THEME MAPPING                                                      */
+/* ------------------------------------------------------------------ */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -131,102 +214,177 @@
   --tracking-widest: calc(var(--tracking-normal) + 0.1em);
 }
 
+/* ------------------------------------------------------------------ */
+/*  BASE                                                               */
+/* ------------------------------------------------------------------ */
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
 
   body {
-    @apply bg-background text-foreground font-mono;
+    @apply bg-background text-foreground font-mono antialiased;
     letter-spacing: var(--tracking-normal);
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
   }
 }
 
+/* ------------------------------------------------------------------ */
+/*  WASPSCRIPT TYPOGRAPHY                                              */
+/*  One set of tokens, light/dark switch happens in :root / .dark      */
+/* ------------------------------------------------------------------ */
 @layer base {
   .prose-waspscript {
-    --tw-prose-body: #333333;
-    --tw-prose-headings: #0a0a0a;
-    --tw-prose-bold: #b08a00;
-    --tw-prose-code: #b08a00;
-    --tw-prose-pre-bg: #f5f5f5;
-    --tw-prose-pre-code: #333333;
-    --tw-prose-bullets: #888;
-    --tw-prose-counters: #888;
-    --tw-prose-links: #b08a00;
-    --tw-prose-hr: #d5d5d5;
-    --tw-prose-quotes: #666;
-    --tw-prose-quote-borders: #b08a00;
+    --tw-prose-body: var(--wasp-body);
+    --tw-prose-headings: var(--wasp-heading);
+    --tw-prose-lead: var(--wasp-muted);
+    --tw-prose-links: var(--wasp-accent);
+    --tw-prose-bold: var(--wasp-heading);
+    --tw-prose-counters: var(--wasp-muted);
+    --tw-prose-bullets: var(--wasp-accent);
+    --tw-prose-hr: var(--wasp-rule);
+    --tw-prose-quotes: var(--wasp-body);
+    --tw-prose-quote-borders: var(--wasp-quote-border);
+    --tw-prose-captions: var(--wasp-muted);
+    --tw-prose-code: var(--wasp-code-text);
+    --tw-prose-pre-code: var(--wasp-pre-text);
+    --tw-prose-pre-bg: var(--wasp-pre-bg);
+    --tw-prose-th-borders: var(--wasp-rule);
+    --tw-prose-td-borders: var(--wasp-rule);
+
+    font-size: 0.9375rem;
+    line-height: 1.75;
   }
 
+  /* headings: tight, bold, with a wasp-yellow tick on h2 */
+  .prose-waspscript :where(h1, h2, h3, h4) {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  .prose-waspscript h2 {
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid var(--wasp-rule);
+  }
+
+  .prose-waspscript h2::before {
+    content: "";
+    display: inline-block;
+    width: 0.35em;
+    height: 0.9em;
+    margin-right: 0.5em;
+    vertical-align: -0.1em;
+    border-radius: 2px;
+    background: var(--primary);
+  }
+
+  /* bold stays readable (heading color), highlighted by a soft underline */
+  .prose-waspscript strong {
+    font-weight: 600;
+    color: var(--wasp-heading);
+    background-image: linear-gradient(var(--primary), var(--primary));
+    background-size: 100% 0.28em;
+    background-position: 0 92%;
+    background-repeat: no-repeat;
+  }
+
+  /* links */
+  .prose-waspscript a {
+    color: var(--wasp-accent);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+
+  .prose-waspscript a:hover {
+    color: var(--wasp-accent-strong);
+    text-decoration-thickness: 2px;
+  }
+
+  /* inline code */
   .prose-waspscript code:not(pre code) {
-    background: #fdf3cc;
-    border: 0.5px solid #e6c800;
+    background: var(--wasp-code-bg);
+    border: 0.5px solid var(--wasp-code-border);
     border-radius: 4px;
     padding: 1px 6px;
     font-size: 0.85em;
-    color: #8a6800;
-    font-weight: 400;
+    font-weight: 500;
+    color: var(--wasp-code-text);
   }
 
+  .prose-waspscript code:not(pre code)::before,
+  .prose-waspscript code:not(pre code)::after {
+    content: none;
+  }
+
+  /* code blocks */
   .prose-waspscript pre {
-    background: #f5f5f5 !important;
-    border: 0.5px solid #d5d5d5;
+    background: var(--wasp-pre-bg);
+    border: 0.5px solid var(--wasp-pre-border);
     border-radius: 8px;
     padding: 1rem 1.25rem;
   }
 
   .prose-waspscript pre code {
-    color: #333333;
+    color: var(--wasp-pre-text);
     font-size: 0.875em;
+    background: transparent;
+    border: 0;
+    padding: 0;
   }
 
-  .prose-waspscript strong {
-    color: #b08a00;
-    font-weight: 500;
+  /* lists */
+  .prose-waspscript ul > li::marker {
+    color: var(--wasp-accent);
   }
 
-  .prose-waspscript ul li::marker {
-    color: #b08a00;
+  .prose-waspscript ol > li::marker {
+    color: var(--wasp-muted);
+    font-weight: 600;
   }
 
-  /* dark overrides */
-  .dark .prose-waspscript {
-    --tw-prose-body: #d4d4d4;
-    --tw-prose-headings: #F0F0F0;
-    --tw-prose-bold: #F5C400;
-    --tw-prose-code: #F5C400;
-    --tw-prose-pre-bg: #0d0d0d;
-    --tw-prose-pre-code: #d4d4d4;
-    --tw-prose-bullets: #444;
-    --tw-prose-counters: #444;
-    --tw-prose-links: #F5C400;
-    --tw-prose-hr: #2a2a2a;
-    --tw-prose-quotes: #888;
-    --tw-prose-quote-borders: #F5C400;
+  /* blockquote */
+  .prose-waspscript blockquote {
+    font-style: normal;
+    font-weight: 400;
+    color: var(--wasp-body);
+    border-left-width: 3px;
+    background: color-mix(in oklab, var(--primary) 8%, transparent);
+    border-radius: 0 6px 6px 0;
+    padding: 0.5rem 1rem;
   }
 
-  .dark .prose-waspscript code:not(pre code) {
-    background: oklch(0.8480 0.1563 82.4419);
-    /* slightly lighter so it pops */
-    border: 0.5px solid #5a4800;
-    /* more visible border */
-    color: #F5C400;
+  .prose-waspscript blockquote p::before,
+  .prose-waspscript blockquote p::after {
+    content: none;
   }
 
-  .dark .prose-waspscript pre {
-    background: #0d0d0d !important;
-    border: 0.5px solid #2a2a2a;
+  /* tables */
+  .prose-waspscript thead th {
+    background: var(--wasp-th-bg);
+    color: var(--wasp-heading);
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
   }
 
-  .dark .prose-waspscript pre code {
-    color: #d4d4d4;
+  .prose-waspscript tbody td {
+    padding: 0.5rem 0.75rem;
   }
 
-  .dark .prose-waspscript strong {
-    color: #F5C400;
+  /* hr, captions, muted text */
+  .prose-waspscript hr {
+    border-color: var(--wasp-rule);
   }
 
-  .dark .prose-waspscript ul li::marker {
-    color: #F5C400;
+  .prose-waspscript figcaption,
+  .prose-waspscript small {
+    color: var(--wasp-muted);
   }
 }
