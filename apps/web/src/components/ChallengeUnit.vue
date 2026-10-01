@@ -26,7 +26,7 @@ const gotToDetails = (id: string) => {
 
 <template>
   <div
-    class="group relative bg-[#111111] border border-[#2a2a2a] rounded-xl px-6 py-5 my-2 mx-4 cursor-pointer overflow-hidden hover:border-primary hover:-translate-y-0.5 transition-all duration-150"
+    class="group relative bg-card border border-border rounded-xl px-6 py-5 my-2 mx-4 cursor-pointer overflow-hidden hover:border-primary hover:-translate-y-0.5 transition-all duration-150"
   >
     <!-- yellow top bar on hover -->
     <div
@@ -48,13 +48,13 @@ const gotToDetails = (id: string) => {
           {{ props.challenge.category }}
         </span>
       </div>
-      <span class="text-xs text-[#444] font-mono"
+      <span class="text-xs text-muted-foreground font-mono"
         >#{{ String(props.challenge.id).padStart(2, "0") }}</span
       >
     </div>
 
     <!-- title -->
-    <h3 class="text-base font-medium text-[#F0F0F0] mb-1 leading-snug">
+    <h3 class="text-base font-medium text-foreground mb-1 leading-snug">
       {{ props.challenge.title }}
     </h3>
 
@@ -63,23 +63,19 @@ const gotToDetails = (id: string) => {
       class="prose prose-invert prose-waspscript max-w-none"
       v-html="description"
     />
-    <!-- <p class="text-sm text-[#666] leading-relaxed mb-4 line-clamp-2">
-      {{ props.challenge.description }}
-    </p> -->
 
     <!-- footer -->
-    <!-- ! saved for later for the junction table -->
     <div
-      class="flex items-center justify-between border-t border-[#1e1e1e] pt-3"
+      class="flex items-center justify-between border-t border-border pt-3"
     >
-      <div class="flex items-center gap-2 text-xs text-[#555]">
+      <div class="flex items-center gap-2 text-xs text-muted-foreground">
         <span
           class="w-1.5 h-1.5 rounded-full"
-          :class="props.challenge.completed ? 'bg-[#4CAF72]' : 'bg-[#333]'"
+          :class="props.challenge.completed ? 'bg-[#4CAF72]' : 'bg-muted'"
         />
-        {{ props.challenge ? "completed" : "not started" }}
+        {{ props.challenge.completed ? "completed" : "not started" }}
       </div>
-      <i @click="gotToDetails(props.challenge.id)" class="fa-solid fa-arrow-right-long text-[#333] text-lg group-hover:text-primary group-hover:translate-x-1 transition-all duration-150"></i>
+      <i @click="gotToDetails(props.challenge.id)" class="fa-solid fa-arrow-right-long text-muted-foreground text-lg group-hover:text-primary group-hover:translate-x-1 transition-all duration-150"></i>
     </div>
   </div>
 </template>
