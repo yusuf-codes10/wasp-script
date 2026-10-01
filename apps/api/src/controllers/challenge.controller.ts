@@ -24,12 +24,17 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
   const limit = Number(limitQuery) || 5;
   const skip = (page - 1) * limit;
 
+  const conditions = [];
+
+  if (difficultyQuery !== undefined) conditions.push(challenges.difficulty, difficultyQuery);
+  
   try {
     const challs = await db
       .select()
       .from(challenges)
       .leftJoin(userProgress,
         and(eq(userProgress.userId, payload.id), eq(userProgress.challengeId, challenges.id)))
+      .where(conditions.length > 0 ? and(...conditions) : undefined)
       // .groupBy(challenges.id)
       .limit(limit)
       .offset(skip)
