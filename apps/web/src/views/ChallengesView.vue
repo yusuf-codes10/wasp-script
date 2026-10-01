@@ -4,6 +4,7 @@ import { getAllChallenges } from "@/services/challenges";
 import { onMounted, ref } from "vue";
 import type { Challenge, toDisplayChallenge } from "@shared/types/challenge";
 import PaginationBar from "@/components/PaginationBar.vue";
+import FilterBar from "@/components/FilterBar.vue";
 
 const challngs = ref<toDisplayChallenge[]>([]);
 
@@ -24,6 +25,7 @@ onMounted(async () => {
 
 <template>
   <div>
+    <FilterBar />
     <ChallengeUnit v-for="ch in challngs" :key="ch.id" :challenge="ch" />
     <PaginationBar
       :length="totalCount"
