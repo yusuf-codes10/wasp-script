@@ -18,7 +18,7 @@ const totalPages = computed(() => Math.ceil(props.length / props.limit));
 </script>
 
 <template>
-  <div class="flex items-center justify-center gap-2 mt-6 font-mono">
+  <div class="flex items-center justify-center gap-2 mt-6 mb-4 font-mono">
     <button
       v-for="p in totalPages"
       :key="p"

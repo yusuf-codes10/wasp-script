@@ -26,7 +26,7 @@ const gotToDetails = (id: string) => {
 
 <template>
   <div
-    class="group relative bg-[#111111] border border-[#2a2a2a] rounded-xl px-6 py-5 my-1 mx-4 cursor-pointer overflow-hidden hover:border-primary hover:-translate-y-0.5 transition-all duration-150"
+    class="group relative bg-[#111111] border border-[#2a2a2a] rounded-xl px-6 py-5 my-2 mx-4 cursor-pointer overflow-hidden hover:border-primary hover:-translate-y-0.5 transition-all duration-150"
   >
     <!-- yellow top bar on hover -->
     <div
