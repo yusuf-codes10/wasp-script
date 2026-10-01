@@ -7,11 +7,12 @@ import PaginationBar from "@/components/PaginationBar.vue";
 
 const challngs = ref<toDisplayChallenge[]>([]);
 
-const currentPage = ref<number>();
+const currentPage = ref<number>(1);
 const totalCount = ref<number>(50);
+const limit = ref<number>(5);
 
 const loadChallenges = async () => {
-  const data = await getAllChallenges();
+  const data = await getAllChallenges(currentPage.value ?? 1, limit.value);
   challngs.value = data;
   console.log("Challenges: ", data);
 };
@@ -27,7 +28,7 @@ onMounted(async () => {
     <PaginationBar
       :length="totalCount"
       :page="currentPage"
-      :limit="10"
+      :limit="limit"
       @changePage="
         currentPage = $event;
         loadChallenges();
