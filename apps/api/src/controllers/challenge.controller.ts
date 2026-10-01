@@ -17,8 +17,10 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
   const pageQuery = c.req.query("page");
   const limitQuery = c.req.query("limit");
 
+  type Difficulty = "easy" | "medium" | "hard" | "legendary";
+
   // difficulty query
-  const difficultyQuery = c.req.query("difficulty");
+  const difficultyQuery = c.req.query("difficulty") as Difficulty;
 
   const page = Number(pageQuery) || 1;
   const limit = Number(limitQuery) || 5;
@@ -26,8 +28,7 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
 
   const conditions = [];
 
-  if (difficultyQuery !== undefined) conditions.push(challenges.difficulty, difficultyQuery);
-  
+  if (difficultyQuery !== undefined) conditions.push(eq(challenges.difficulty, difficultyQuery));
   try {
     const challs = await db
       .select()
