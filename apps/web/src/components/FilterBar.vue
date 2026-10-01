@@ -7,6 +7,7 @@ const emit = defineEmits<{
 
 const chooseFilter = (filter: string) => {
     emit('filter', filter);
+    console.log('emit clicked', filter);
 }
 </script>
 
@@ -34,7 +35,7 @@ const chooseFilter = (filter: string) => {
         @click="chooseFilter(d)"
         class="text-[11px] px-3 py-1 rounded-full border transition-all duration-150"
         :class="{
-          'bg-primary text-primary-foreground border-primary font-bold': d === 'all',
+          'bg-primary text-mary-foreground border-primary font-bold': d === 'all',
           'bg-[#0f2a1a] text-[#4CAF72] border-[#1a4a2a] hover:opacity-80': d === 'easy',
           'bg-[#2a1a00] text-[#E6A800] border-[#4a3000] hover:opacity-80': d === 'medium',
           'bg-[#2a0f0f] text-[#E05252] border-[#4a1a1a] hover:opacity-80': d === 'hard',

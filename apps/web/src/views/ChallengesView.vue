@@ -25,7 +25,7 @@ onMounted(async () => {
 
 <template>
   <div>
-    <FilterBar />
+    <FilterBar @filter="loadChallenges" />
     <ChallengeUnit v-for="ch in challngs" :key="ch.id" :challenge="ch" />
     <PaginationBar
       :length="totalCount"
