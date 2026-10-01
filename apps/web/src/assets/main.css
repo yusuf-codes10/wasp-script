@@ -310,7 +310,7 @@
 
   /* inline code */
   .prose-waspscript code:not(pre code) {
-    background: var(--wasp-code-bg);
+    background: var(--ring);
     border: 0.5px solid var(--wasp-code-border);
     border-radius: 4px;
     padding: 1px 6px;
