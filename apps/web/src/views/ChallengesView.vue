@@ -27,7 +27,7 @@ onMounted(async () => {
     <PaginationBar
       :length="totalCount"
       :page="currentPage"
-      :limit="5"
+      :limit="10"
       @changePage="
         currentPage = $event;
         loadChallenges();
