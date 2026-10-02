@@ -56,9 +56,8 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
     const response: toDisplayChallenge[] = challs.map(({ challenges, userProgress }) => ({
       ...challenges,
       completed: userProgress !== null,
-      count: total
     }));
-    return c.json(response);
+    return c.json({response, count: total});
   } catch (error) {
     console.log(error);
   }

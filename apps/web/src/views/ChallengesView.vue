@@ -19,6 +19,7 @@ const loadChallenges = async (filter: string = "") => {
     filter,
   );
   challngs.value = data;
+
   console.log("Challenges: ", data);
 };
 
