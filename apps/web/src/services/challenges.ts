@@ -5,12 +5,13 @@ export const getAllChallenges = async (
   page: number = 1,
   limit: number = 5,
   difficulty: string = "",
+  search: string = ""
 ): Promise<{
     challenges: toDisplayChallenge[];
     total: any;
 }> => {
   const res  = await api.get(`/challenges`, {
-    params: { page, limit, difficulty: difficulty || undefined },
+    params: { page, limit, difficulty: difficulty || undefined, search: search || undefined },
   });
   const { response: challenges, count: total } = res.data;
   return {challenges, total};
