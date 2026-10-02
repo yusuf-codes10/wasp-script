@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, computed} from 'vue';
 
+const searchInput = ref<string>('');
+
 const emit = defineEmits<{
     (e: 'filter', value: string): void
 }>();
@@ -18,6 +20,7 @@ const chooseFilter = (filter: string) => {
     <div class="relative w-full sm:w-64">
       <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs" />
       <input
+        v-model="searchInput"
         type="text"
         placeholder="search challenges..."
         class="w-full bg-card border border-border rounded-md pl-8 pr-3 py-1.5 text-[13px] text-foreground placeholder:text-muted-foreground outline-none focus:border-primary transition-colors"
