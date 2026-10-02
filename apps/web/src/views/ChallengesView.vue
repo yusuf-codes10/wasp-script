@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ChallengeUnit from "@/components/ChallengeUnit.vue";
 import { getAllChallenges } from "@/services/challenges";
-import { onMounted, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import type { Challenge, toDisplayChallenge } from "@shared/types/challenge";
 import PaginationBar from "@/components/PaginationBar.vue";
 import FilterBar from "@/components/FilterBar.vue";
@@ -15,11 +15,12 @@ const challngs = ref<toDisplayChallenge[]>();
 const totalCount = ref<number>(0);
 const limit = ref<number>(5);
 
-const loadChallenges = async (filter: string = "") => {
+const loadChallenges = async () => {
   const page = Number(route.query.page) || 1;
   const difficulty = String(route.query.difficulty || "");
+  const search = String(route.query.search || "");
 
-  const data = await getAllChallenges(page, limit.value, difficulty);
+  const data = await getAllChallenges(page, limit.value, difficulty, search);
   challngs.value = data.challenges;
   totalCount.value = data.total;
 
@@ -44,18 +45,19 @@ watch(
   { immediate: true },
 );
 
-const setSearchFilter = (filter: string) => {
+const setSearchFilter = (search: string) => {
   router.push({
     query: {
       ...route.query,
-      filter,
+      search,
+      page: 1
     },
   });
 };
 
-onMounted(async () => {
-  await loadChallenges();
-});
+// onMounted(async () => {
+//   await loadChallenges();
+// });
 </script>
 
 <template>
