@@ -394,3 +394,6 @@
 .prose code::after {
   content: none;
 }
+.dark .prose-waspscript code:not(pre code) {
+  color: #000;
+}
