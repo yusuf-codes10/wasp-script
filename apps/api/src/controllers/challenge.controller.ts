@@ -1,6 +1,6 @@
 import { createFactory } from "hono/factory";
 import { db } from "@db/index";
-import { eq, and } from "drizzle-orm";
+import { eq, and, ilike, or } from "drizzle-orm";
 import { challenges } from "@db/schema";
 import { HTTPException } from "hono/http-exception";
 import { userProgress } from "@db/schema";
@@ -21,6 +21,7 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
 
   // difficulty query
   const difficultyQuery = c.req.query("difficulty") as Difficulty;
+  const searchQuery = c.req.query("search");
 
   const page = Number(pageQuery) || 1;
   const limit = Number(limitQuery) || 5;
@@ -29,6 +30,8 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
   const conditions = [];
 
   if (difficultyQuery !== undefined) conditions.push(eq(challenges.difficulty, difficultyQuery));
+
+  if (searchQuery !== undefined) conditions.push(ilike(challenges.title, `%${searchQuery}%`));
   try {
     const challs = await db
       .select()
