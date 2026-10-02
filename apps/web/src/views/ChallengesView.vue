@@ -28,6 +28,15 @@ const loadChallenges = async (filter: string = "") => {
   console.log("Challenges: ", data);
 };
 
+const setDifficulty = (difficulty: string) => {
+  router.push({
+    query: {
+      ...route.query,
+      difficulty
+    }
+  })
+}
+
 onMounted(async () => {
   await loadChallenges();
 });
