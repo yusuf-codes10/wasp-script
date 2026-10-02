@@ -5,6 +5,10 @@ import { onMounted, ref } from "vue";
 import type { Challenge, toDisplayChallenge } from "@shared/types/challenge";
 import PaginationBar from "@/components/PaginationBar.vue";
 import FilterBar from "@/components/FilterBar.vue";
+import { useRoute, useRouter } from "vue-router";
+
+const route = useRoute();
+const router = useRouter();
 
 const challngs = ref<toDisplayChallenge[]>();
 
