@@ -9,7 +9,7 @@ import FilterBar from "@/components/FilterBar.vue";
 const challngs = ref<toDisplayChallenge[]>();
 
 const currentPage = ref<number>(1);
-const totalCount = ref<number>(50);
+const totalCount = ref<number>(0);
 const limit = ref<number>(5);
 
 const loadChallenges = async (filter: string = "") => {
@@ -18,7 +18,8 @@ const loadChallenges = async (filter: string = "") => {
     limit.value,
     filter,
   );
-  challngs.value = data;
+  challngs.value = data.challenges;
+  totalCount.value = data.total;
 
   console.log("Challenges: ", data);
 };
