@@ -33,16 +33,21 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
 
   if (searchQuery !== undefined) conditions.push(ilike(challenges.title, `%${searchQuery}%`));
   try {
+    const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
     const challs = await db
       .select()
       .from(challenges)
       .leftJoin(userProgress,
         and(eq(userProgress.userId, payload.id), eq(userProgress.challengeId, challenges.id)))
-      .where(conditions.length > 0 ? and(...conditions) : undefined)
+      .where(whereClause)
       // .groupBy(challenges.id)
       .limit(limit)
       .offset(skip)
       .orderBy(challenges.id);
+
+    // coutning the result in the same conditions
+    const total = await db.$count(challenges, whereClause);
 
     // if (!challs.userProgress) {
 
@@ -51,6 +56,7 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
     const response: toDisplayChallenge[] = challs.map(({ challenges, userProgress }) => ({
       ...challenges,
       completed: userProgress !== null,
+      count: total
     }));
     return c.json(response);
   } catch (error) {
