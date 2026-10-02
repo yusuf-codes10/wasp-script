@@ -41,8 +41,17 @@ watch(
   () => {
     loadChallenges();
   },
-  { immediate: true}
+  { immediate: true },
 );
+
+const setSearchFilter = (filter: string) => {
+  router.push({
+    query: {
+      ...route.query,
+      filter,
+    },
+  });
+};
 
 onMounted(async () => {
   await loadChallenges();
@@ -51,7 +60,7 @@ onMounted(async () => {
 
 <template>
   <div>
-    <FilterBar @filter="setDifficulty($event)" />
+    <FilterBar @filter="setDifficulty($event)" @search="setSearchFilter($event)" />
 
     <div v-if="challngs" class="max-w-4xl mx-auto">
       <ChallengeUnit v-for="ch in challngs" :key="ch.id" :challenge="ch" />
