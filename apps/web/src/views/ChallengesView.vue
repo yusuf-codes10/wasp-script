@@ -41,6 +41,7 @@ watch(
   () => {
     loadChallenges();
   },
+  { immediate: true}
 );
 
 onMounted(async () => {
