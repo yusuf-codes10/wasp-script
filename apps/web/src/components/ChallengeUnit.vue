@@ -43,7 +43,7 @@ const gotToDetails = (id: string) => {
           {{ props.challenge.difficulty }}
         </span>
         <span
-          class="text-[11px] font-medium px-3 py-0.5 rounded-full bg-[#1e1a00] text-primary border border-[#3a3000]"
+            class="text-[11px] font-medium px-3 py-0.5 rounded-full bg-primary/15 text-foreground border border-primary/40"
         >
           {{ props.challenge.category }}
         </span>
