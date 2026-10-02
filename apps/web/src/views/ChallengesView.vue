@@ -12,7 +12,6 @@ const router = useRouter();
 
 const challngs = ref<toDisplayChallenge[]>();
 
-const currentPage = ref<number>(1);
 const totalCount = ref<number>(0);
 const limit = ref<number>(5);
 
@@ -57,11 +56,15 @@ onMounted(async () => {
       <ChallengeUnit v-for="ch in challngs" :key="ch.id" :challenge="ch" />
       <PaginationBar
         :length="totalCount"
-        :page="currentPage"
+        :page="Number(route.query.page) || 1"
         :limit="limit"
         @changePage="
-          currentPage = $event;
-          loadChallenges();
+          router.push({
+            query: {
+              ...route.query,
+              page: $event,
+            },
+          })
         "
       />
     </div>
