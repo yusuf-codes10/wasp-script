@@ -135,7 +135,9 @@
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.8);
 
   /* wasp prose tokens (dark) */
-  --wasp-body: #d4d4d4;
+
+  --wasp-body: #ececec;   /* was #d4d4d4 */
+  --wasp-muted: #b0b0b0;  /* was #9a9a9a, optional: for captions and counters */
   --wasp-heading: #f0f0f0;
   --wasp-accent: #f5c400;
   --wasp-accent-strong: #ffe066;
@@ -145,7 +147,6 @@
   --wasp-pre-bg: #0d0d0d;
   --wasp-pre-text: #d4d4d4;
   --wasp-pre-border: #2a2a2a;
-  --wasp-muted: #9a9a9a;
   --wasp-rule: #2a2a2a;
   --wasp-quote-border: #f5c400;
   --wasp-th-bg: #1e1a00;
@@ -237,7 +238,7 @@
 /*  WASPSCRIPT TYPOGRAPHY                                              */
 /*  One set of tokens, light/dark switch happens in :root / .dark      */
 /* ------------------------------------------------------------------ */
-@layer base {
+
   .prose-waspscript {
     --tw-prose-body: var(--wasp-body);
     --tw-prose-headings: var(--wasp-heading);
@@ -387,7 +388,6 @@
   .prose-waspscript small {
     color: var(--wasp-muted);
   }
-}
 
 /* in your global CSS */
 .prose code::before,
