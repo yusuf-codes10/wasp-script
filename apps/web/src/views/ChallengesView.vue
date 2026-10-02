@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ChallengeUnit from "@/components/ChallengeUnit.vue";
 import { getAllChallenges } from "@/services/challenges";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import type { Challenge, toDisplayChallenge } from "@shared/types/challenge";
 import PaginationBar from "@/components/PaginationBar.vue";
 import FilterBar from "@/components/FilterBar.vue";
@@ -36,6 +36,15 @@ const setDifficulty = (difficulty: string) => {
     }
   })
 }
+
+// a watch that watches the url changes
+watch(
+  () => route.query,
+  () => {
+    loadChallenges();
+  }
+
+)
 
 onMounted(async () => {
   await loadChallenges();
