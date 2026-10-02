@@ -2,15 +2,15 @@ import api from "@/services/api";
 import type { Challenge, toDisplayChallenge } from "@shared/types/challenge";
 
 export const getAllChallenges = async (
-  page: number = 5,
-  limit: number = 1,
-  query: string = "",
+  page: number = 1,
+  limit: number = 5,
+  difficulty: string = "",
 ): Promise<{
     challenges: toDisplayChallenge[];
     total: any;
 }> => {
   const res  = await api.get(`/challenges`, {
-    params: { page, limit, difficulty: query || undefined },
+    params: { page, limit, difficulty: difficulty || undefined },
   });
   const { response: challenges, count: total } = res.data;
   return {challenges, total};

@@ -17,11 +17,10 @@ const totalCount = ref<number>(0);
 const limit = ref<number>(5);
 
 const loadChallenges = async (filter: string = "") => {
-  const data = await getAllChallenges(
-    currentPage.value ?? 1,
-    limit.value,
-    filter,
-  );
+  const page = Number(route.query.page) || 1;
+  const difficulty = String(route.query.difficulty || "");
+
+  const data = await getAllChallenges(page, limit.value, difficulty);
   challngs.value = data.challenges;
   totalCount.value = data.total;
 
@@ -32,19 +31,18 @@ const setDifficulty = (difficulty: string) => {
   router.push({
     query: {
       ...route.query,
-      difficulty
-    }
-  })
-}
+      difficulty,
+    },
+  });
+};
 
 // a watch that watches the url changes
 watch(
   () => route.query,
   () => {
     loadChallenges();
-  }
-
-)
+  },
+);
 
 onMounted(async () => {
   await loadChallenges();
