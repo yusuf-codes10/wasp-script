@@ -44,7 +44,7 @@ onMounted(async () => {
 
 <template>
   <div>
-    <FilterBar @filter="loadChallenges($event)" />
+    <FilterBar @filter="setDifficulty($event)" />
 
     <div v-if="challngs" class="max-w-4xl mx-auto">
       <ChallengeUnit v-for="ch in challngs" :key="ch.id" :challenge="ch" />
