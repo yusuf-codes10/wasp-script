@@ -12,6 +12,11 @@ const chooseFilter = (filter: string) => {
   emit("filter", filter);
   console.log("emit clicked", filter);
 };
+
+const searchTitle = () => {
+  emit('search', searchInput.value);
+  console.log('search is: ', searchInput.value);
+}
 </script>
 
 <template>
@@ -30,6 +35,7 @@ const chooseFilter = (filter: string) => {
         class="w-full relative bg-card border border-border rounded-md pl-8 pr-3 py-1.5 text-[13px] text-foreground placeholder:text-muted-foreground outline-none focus:border-primary transition-colors"
       />
       <button
+      @click="searchTitle"
         type="button"
         aria-label="Search"
         class="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors cursor-pointer"
