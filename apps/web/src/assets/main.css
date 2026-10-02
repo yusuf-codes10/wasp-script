@@ -388,3 +388,9 @@
     color: var(--wasp-muted);
   }
 }
+
+/* in your global CSS */
+.prose code::before,
+.prose code::after {
+  content: none;
+}
