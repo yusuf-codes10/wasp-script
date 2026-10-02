@@ -4,7 +4,8 @@ import { ref, computed} from 'vue';
 const searchInput = ref<string>('');
 
 const emit = defineEmits<{
-    (e: 'filter', value: string): void
+    (e: 'filter', value: string): void;
+    (e: 'search', value: string): void;
 }>();
 
 const chooseFilter = (filter: string) => {
