@@ -17,7 +17,7 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
   const pageQuery = c.req.query("page");
   const limitQuery = c.req.query("limit");
 
-  type Difficulty = "easy" | "medium" | "hard" | "legendary";
+  type Difficulty = "easy" | "medium" | "hard" | "legendary" | "all";
 
   // difficulty query
   const difficultyQuery = c.req.query("difficulty") as Difficulty;
@@ -29,7 +29,7 @@ export const getAllChallenges = factory.createHandlers(async (c) => {
 
   const conditions = [];
 
-  if (difficultyQuery !== undefined) conditions.push(eq(challenges.difficulty, difficultyQuery));
+  if (difficultyQuery &&  difficultyQuery !== "all") conditions.push(eq(challenges.difficulty, difficultyQuery));
 
   if (searchQuery !== undefined) conditions.push(ilike(challenges.title, `%${searchQuery}%`));
   try {
