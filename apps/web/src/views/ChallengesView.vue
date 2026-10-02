@@ -7,6 +7,7 @@ import PaginationBar from "@/components/PaginationBar.vue";
 import FilterBar from "@/components/FilterBar.vue";
 import { useRoute, useRouter } from "vue-router";
 
+
 const route = useRoute();
 const router = useRouter();
 
@@ -32,6 +33,7 @@ const setDifficulty = (difficulty: string) => {
     query: {
       ...route.query,
       difficulty,
+      page: 1
     },
   });
 };
@@ -85,4 +87,5 @@ const setSearchFilter = (search: string) => {
       <span class="text-muted-foreground text-sm font-mono">loading...</span>
     </div>
   </div>
+<!-- TODO: next: add a reset button -->
 </template>
