@@ -6,8 +6,10 @@ import MainButton from "./MainButton.vue";
 import { VueMonacoEditor } from "@guolao/vue-monaco-editor";
 import { ref } from "vue";
 import { submitResponse } from "@/services/submissions.ts";
+import { useThemeStore } from "@/stores/themeStore.ts";
 
 const router = useRouter();
+const themeStore = useThemeStore();
 
 const props = defineProps<{
   challenge: Challenge;
@@ -106,7 +108,7 @@ const handleMount = (editor: any) => {
       <VueMonacoEditor
         v-model:value="userCode"
         language="javascript"
-        theme="hc-black"
+        :theme="themeStore.dark ? 'hc-black' : 'vs'"
         :style="{ height: editorHeight, width: '100%' }"
         :options="{
           automaticLayout: true,
