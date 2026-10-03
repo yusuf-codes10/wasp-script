@@ -8,6 +8,7 @@ import { eq, or } from "drizzle-orm";
 import { HTTPException } from "hono/http-exception";
 import { issueSession } from "@/utils/issueSession";
 import { destroyToken } from "@/utils/destroyToken";
+import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 // TODO: properly type this generic
 const factory = createFactory<{}>();
@@ -96,6 +97,67 @@ export const register = factory.createHandlers(
   },
 );
 
+// export const login = factory.createHandlers(
+//   zValidator("json", loginSchema),
+//   async (c) => {
+//     const toLogUser = c.req.valid("json");
+//     try {
+//       // 1- sekisho login first
+//       const response = await fetch("https://sekisho.onrender.com/auth/login", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(toLogUser),
+//       });
+
+//       //! parsing non json string
+//       if (!response.ok) {
+//         const text = await response.text();
+//         let msg: string;
+//         try {
+//           const error = JSON.parse(text) as { msg: string };
+//           msg = error.msg;
+//         } catch {
+//           msg = text;
+//         }
+//         throw new HTTPException(400, { message: msg });
+//       }
+
+//       const data = await response.json();
+//       console.log(data);
+
+//       const { safeUser, token } = data as { safeUser: User; token: string };
+
+//       // check if user exists
+//       const [foundUser] = await db
+//         .select()
+//         .from(users)
+//         .where(eq(users.username, safeUser.username));
+
+//       if (!foundUser)
+//         throw new HTTPException(404, {
+//           message: "User does not exist! Sign Up first",
+//         });
+
+//       // issue the session
+//       await issueSession(c, {
+//         id: foundUser.id,
+//         username: foundUser.username,
+//         email: foundUser.email,
+//       });
+
+//       return c.json({ msg: "user logged in!" });
+//     } catch (error) {
+//       console.log(error);
+
+//       if (error instanceof HTTPException) {
+//         return c.json({ msg: error.message }, error.status); // handle the error in the api
+//       }
+
+//       return c.json({ msg: "Internal error" }, 500);
+//     }
+//   },
+// );
+
 export const login = factory.createHandlers(
   zValidator("json", loginSchema),
   async (c) => {
@@ -108,9 +170,24 @@ export const login = factory.createHandlers(
         body: JSON.stringify(toLogUser),
       });
 
-      //! parsing non json string
       if (!response.ok) {
+        // 2- read the raw body
         const text = await response.text();
+
+        // 3- LOG HERE: status + headers + raw body, before anything gets flattened
+        console.error("sekisho login failed", {
+          status: response.status,
+          server: response.headers.get("server"),
+          cfRay: response.headers.get("cf-ray"),
+          rndrId: response.headers.get("rndr-id"),
+          retryAfter: response.headers.get("retry-after"),
+          rateLimit:
+            response.headers.get("ratelimit") ??
+            response.headers.get("x-ratelimit-limit"),
+          body: text,
+        });
+
+        // 4- parse non-JSON bodies safely
         let msg: string;
         try {
           const error = JSON.parse(text) as { msg: string };
@@ -118,13 +195,15 @@ export const login = factory.createHandlers(
         } catch {
           msg = text;
         }
-        throw new HTTPException(400, { message: msg });
+
+        // 5- keep the real upstream status (429 stays 429)
+        throw new HTTPException(response.status as ContentfulStatusCode, {
+          message: msg,
+        });
       }
 
       const data = await response.json();
-      console.log(data);
-
-      const { safeUser, token } = data as { safeUser: User; token: string };
+      const { safeUser } = data as { safeUser: User; token: string };
 
       // check if user exists
       const [foundUser] = await db
