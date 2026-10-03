@@ -52,6 +52,7 @@ const setSearchFilter = (search: string) => {
     query: {
       ...route.query,
       search,
+      difficulty: "all",
       page: 1
     },
   });
