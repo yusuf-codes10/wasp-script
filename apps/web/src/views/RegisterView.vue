@@ -181,11 +181,16 @@ const register = async () => {
               </div>
             </div>
 
-            <div>
-              <p class="text-red-500 text-3xl">
-                {{ error }}
-              </p>
-            </div>
+            <Transition name="fade">
+              <div
+                v-if="error"
+                role="alert"
+                class="mt-5 flex items-start gap-2 rounded-md border border-[#4a1a1a] bg-[#2a0f0f] px-3 py-2.5 font-mono text-[12px] leading-snug text-[#E05252]"
+              >
+                <i class="fa-solid fa-circle-exclamation mt-0.5 text-xs" />
+                <span>{{ error }}</span>
+              </div>
+            </Transition>
 
             <!-- <button
             @click="login"
@@ -215,8 +220,10 @@ const register = async () => {
         <!-- register -->
         <Transition name="slide">
           <form
-          @submit.prevent="register"
-          v-if="tab === 'register'" key="register">
+            @submit.prevent="register"
+            v-if="tab === 'register'"
+            key="register"
+          >
             <h2 class="text-lg font-bold text-foreground mb-1">
               create account
             </h2>
@@ -367,11 +374,16 @@ const register = async () => {
               </div>
             </div>
 
-            <div>
-              <p class="text-red-500 text-3xl">
-                {{ error }}
-              </p>
-            </div>
+            <Transition name="fade">
+              <div
+                v-if="error"
+                role="alert"
+                class="mt-5 flex items-start gap-2 rounded-md border border-[#4a1a1a] bg-[#2a0f0f] px-3 py-2.5 font-mono text-[12px] leading-snug text-[#E05252]"
+              >
+                <i class="fa-solid fa-circle-exclamation mt-0.5 text-xs" />
+                <span>{{ error }}</span>
+              </div>
+            </Transition>
 
             <MainButton
               type="submit"
@@ -411,5 +423,15 @@ const register = async () => {
 .slide-leave-to {
   opacity: 0;
   transform: translateX(-12px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s, transform 0.2s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
 }
 </style>
