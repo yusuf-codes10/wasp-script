@@ -1,32 +1,28 @@
-import ChallengesView from "@/views/ChallengesView.vue";
-import ChallengeDetailsView from "@/views/ChallengeDetailsView.vue";
-import HomeView from "@/views/HomeView.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import RegisterView from "@/views/RegisterView.vue";
 import { useAuthStore } from "@/stores/authStore";
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: HomeView,
+    component: () => import("@/views/HomeView.vue"),
   },
   {
     path: '/register',
     name: 'Register',
-    component: RegisterView,
+    component: import("@/views/RegisterView.vue"),
     meta: { guestOnly: true}
   },
   {
     path: "/challenges",
     name: "Challenges",
-    component: ChallengesView,
+    component: () => import("@/views/ChallengesView.vue"),
     meta: { requiresAuth: true }
   },
   {
     path: "/challenges/:id",
     name: "Challenge",
-    component: ChallengeDetailsView,
+    component: () => import("@/views/ChallengeDetailsView.vue"),
     meta: { requiresAuth: true }
   },
 ];
