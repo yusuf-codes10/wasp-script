@@ -8,22 +8,22 @@ const routes = [
     component: () => import("@/views/HomeView.vue"),
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: import("@/views/RegisterView.vue"),
-    meta: { guestOnly: true}
+    path: "/register",
+    name: "Register",
+    component: () => import("@/views/RegisterView.vue"),
+    meta: { guestOnly: true },
   },
   {
     path: "/challenges",
     name: "Challenges",
     component: () => import("@/views/ChallengesView.vue"),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/challenges/:id",
     name: "Challenge",
     component: () => import("@/views/ChallengeDetailsView.vue"),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
 ];
 
@@ -40,10 +40,14 @@ router.beforeEach(async (to) => {
     await authStore.fetchUser();
   }
 
+  if (to.meta.guestOnly && authStore.user) {
+    return { name: "Home" };
+  }
+
   // redirect in not logged in
   if (to.meta.requiresAuth && !authStore.user) {
     return { name: "Register" }; // block + redirect
   }
-})
+});
 
 export default router;
