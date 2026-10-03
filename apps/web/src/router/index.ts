@@ -14,7 +14,8 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: RegisterView
+    component: RegisterView,
+    meta: { guestOnly: true}
   },
   {
     path: "/challenges",
