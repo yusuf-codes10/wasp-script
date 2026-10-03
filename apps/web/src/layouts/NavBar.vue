@@ -52,7 +52,7 @@ console.log(authStore.user);
     <div class="flex items-center gap-2.5">
       <div>
         <button @click="themeStore.toggleTheme" class="cursor-pointer">
-          <i :class="themeStore.dark ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"></i>
+          <i :class="themeStore.dark ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
         </button>
       </div>
       <div class="flex items-center gap-2" v-if="authStore.user">
