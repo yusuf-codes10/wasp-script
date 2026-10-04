@@ -37,6 +37,7 @@ const description = useMarkdown(props.challenge.description);
 
 const submitAnswer = async () => {
   error.value = "";
+  WaspScriptResponse.value = null;
   try {
     const data = await submitResponse({
       code: userCode.value,
