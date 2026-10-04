@@ -8,6 +8,10 @@ defineProps<{
   lines?: ConsoleLine[];
 }>();
 
+const emit = defineEmits<{
+  (e: "run"): void;
+}>();
+
 const lineClass: Record<string, string> = {
   log: "text-foreground",
   info: "text-muted-foreground",
@@ -28,7 +32,15 @@ const promptClass: Record<string, string> = {
       class="flex items-center justify-between px-4 py-2 border-b border-border shrink-0"
     >
       <span class="text-xs text-muted-foreground font-mono">console</span>
-      <span class="w-2 h-2 rounded-full bg-primary" />
+      <button
+        type="button"
+        aria-label="Run code"
+        class="flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-primary text-primary-foreground hover:brightness-110 active:brightness-95 focus-visible:ring-2 focus-visible:ring-ring/60 outline-none transition duration-150 cursor-pointer"
+        @click="emit('run')"
+      >
+        <i class="fa-solid fa-play text-[9px]" />
+        <span>run</span>
+      </button>
     </div>
 
     <!-- output -->
@@ -53,7 +65,7 @@ const promptClass: Record<string, string> = {
           :class="promptClass[line.type ?? 'log']"
           >&gt;</span
         >
-        <span class="whitespace-pre-wrap warap-break min-w-0">{{
+        <span class="whitespace-pre-wrap wrap-break min-w-0">{{
           line.text
         }}</span>
       </div>
