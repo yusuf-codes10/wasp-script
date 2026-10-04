@@ -46,9 +46,10 @@ const submitAnswer = async () => {
     WaspScriptResponse.value = content;
     console.log(data);
   } catch (err) {
-    console.log(err);
     if (axios.isAxiosError(err)) {
-      error.value = err.response?.data.msg;
+      const data = err.response?.data;
+      error.value =
+        typeof data === "string" ? data : (data?.msg ?? "Something went wrong");
     }
   }
 };
