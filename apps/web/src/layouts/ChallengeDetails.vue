@@ -9,6 +9,7 @@ import { submitResponse } from "@/services/submissions.ts";
 import { useThemeStore } from "@/stores/themeStore.ts";
 import ConsoleOutput from "@/components/ConsoleOutput.vue";
 import { useCodeRunner } from "@/composables/useCompiler";
+import axios from "axios";
 
 const router = useRouter();
 const themeStore = useThemeStore();
@@ -35,6 +36,7 @@ const editorHeight = ref("0px");
 const description = useMarkdown(props.challenge.description);
 
 const submitAnswer = async () => {
+  error.value = "";
   try {
     const data = await submitResponse({
       code: userCode.value,
@@ -45,7 +47,9 @@ const submitAnswer = async () => {
     console.log(data);
   } catch (err) {
     console.log(err);
-    // error.value = err;
+    if (axios.isAxiosError(err)) {
+      error.value = err.response?.data.msg;
+    }
   }
 };
 
@@ -126,7 +130,18 @@ const handleMount = (editor: any) => {
       />
     </div>
 
-    <ConsoleOutput :lines="lines" @run="run(userCode)"/>
+    <ConsoleOutput :lines="lines" @run="run(userCode)" />
+
+    <Transition name="fade">
+      <div
+        v-if="error"
+        role="alert"
+        class="mt-5 flex items-start gap-2 rounded-md border border-[#4a1a1a] bg-[#2a0f0f] px-3 py-2.5 font-mono text-[12px] leading-snug text-[#E05252]"
+      >
+        <i class="fa-solid fa-circle-exclamation mt-0.5 text-xs" />
+        <span>{{ error }}</span>
+      </div>
+    </Transition>
 
     <!-- ! Submission Response -->
     <Transition name="fade">
