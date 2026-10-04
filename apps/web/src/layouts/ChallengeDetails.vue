@@ -13,7 +13,7 @@ import { useCodeRunner } from "@/composables/useCompiler";
 const router = useRouter();
 const themeStore = useThemeStore();
 
-const codeRunner = useCodeRunner();
+const { lines, run } = useCodeRunner();
 
 const props = defineProps<{
   challenge: Challenge;
@@ -126,7 +126,7 @@ const handleMount = (editor: any) => {
       />
     </div>
 
-    <ConsoleOutput @run="codeRunner.run(userCode)"/>
+    <ConsoleOutput :lines="lines" @run="run(userCode)"/>
 
     <!-- ! Submission Response -->
     <Transition name="fade">
