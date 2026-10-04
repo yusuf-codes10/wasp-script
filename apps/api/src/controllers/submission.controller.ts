@@ -96,9 +96,12 @@ export const getChallengeResult = factroy.createHandlers(
       return c.json(answer);
     } catch (error) {
       console.error(error);
-      throw new HTTPException(500, {
-        message: "Something went wrong with the AI evaluation",
-      });
+
+      if (error instanceof HTTPException) {
+        return c.json({ msg: error.message }, error.status); // handle the error in the api
+      }
+
+      return c.json({ msg: "Internal error" }, 500);
     }
   },
 );
