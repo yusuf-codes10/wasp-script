@@ -8,9 +8,12 @@ import { ref } from "vue";
 import { submitResponse } from "@/services/submissions.ts";
 import { useThemeStore } from "@/stores/themeStore.ts";
 import ConsoleOutput from "@/components/ConsoleOutput.vue";
+import { useCodeRunner } from "@/composables/useCompiler";
 
 const router = useRouter();
 const themeStore = useThemeStore();
+
+const codeRunner = useCodeRunner();
 
 const props = defineProps<{
   challenge: Challenge;
@@ -123,7 +126,7 @@ const handleMount = (editor: any) => {
       />
     </div>
 
-    <ConsoleOutput />
+    <ConsoleOutput @run="codeRunner.run(userCode)"/>
 
     <!-- ! Submission Response -->
     <Transition name="fade">
