@@ -7,6 +7,7 @@ import authRouter from '@/routes/auth.route';
 import challengesRouter from '@/routes/challenge.route';
 import submissionRouter from '@/routes/submission.route';
 import { cors } from "hono/cors";
+import { HTTPException } from "hono/http-exception";
 
 const app = new Hono();
 
@@ -27,5 +28,13 @@ app.get("/admin", (c) => {
   return c.json({ msg: "Hello Admin!" });
 });
 app.use(catchAll);
+
+app.onError((err, c) => {
+  if (err instanceof HTTPException) {
+    return c.json({ msg: err.message }, err.status);
+  }
+  console.error(err);
+  return c.json({ msg: "Internal error" }, 500);
+});
 
 export default app;
