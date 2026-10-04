@@ -2,11 +2,12 @@
 import type { Challenge } from "@shared/types/challenge";
 import { useMarkdown } from "@/composables/useMarkdown";
 import { useRouter } from "vue-router";
-import MainButton from "./MainButton.vue";
+import MainButton from "@/components/MainButton.vue";
 import { VueMonacoEditor } from "@guolao/vue-monaco-editor";
 import { ref } from "vue";
 import { submitResponse } from "@/services/submissions.ts";
 import { useThemeStore } from "@/stores/themeStore.ts";
+import ConsoleOutput from "@/components/ConsoleOutput.vue";
 
 const router = useRouter();
 const themeStore = useThemeStore();
@@ -121,6 +122,8 @@ const handleMount = (editor: any) => {
         @mount="handleMount"
       />
     </div>
+
+    <ConsoleOutput />
 
     <!-- ! Submission Response -->
     <Transition name="fade">
