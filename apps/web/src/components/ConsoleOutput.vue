@@ -1,8 +1,5 @@
 <script setup lang="ts">
-export type ConsoleLine = {
-  type?: "log" | "error" | "info";
-  text: string;
-};
+import type { ConsoleLine } from '@/composables/useCompiler';
 
 defineProps<{
   lines?: ConsoleLine[];
